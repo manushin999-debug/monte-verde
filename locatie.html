@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Locatie — Monte Verde Amsterdam</title>
+  <meta name="description" content="Monte Verde op Albert Cuypstraat 15H in Amsterdam De Pijp. 2 minuten van de Albert Cuypmarkt en Museumplein. Route, openingstijden en bereikbaarheid.">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Location page specifics ───────────────────────────── */
+    .loc-section { padding: 56px 40px; }
+
+    /* Hero with exterior photo */
+    .locatie-hero-photo {
+      position: relative;
+      height: 340px;
+      overflow: hidden;
+      margin-top: var(--nav-h);
+    }
+    .locatie-hero-photo img {
+      width: 100%; height: 100%;
+      object-fit: cover; object-position: center 60%;
+      display: block;
+    }
+    .locatie-hero-photo__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, rgba(0,0,0,.18) 0%, rgba(30,30,30,.65) 100%);
+      display: flex; align-items: flex-end;
+      padding: 36px 48px;
+    }
+    .locatie-hero-photo__text { color: #fff; }
+    .locatie-hero-photo__text h1 {
+      font-family: var(--font-display);
+      font-size: clamp(32px, 5vw, 60px);
+      font-weight: 300; line-height: 1.1;
+      margin-bottom: 8px;
+    }
+    .locatie-hero-photo__text h1 em { font-style: italic; color: var(--green-muted); }
+    .locatie-hero-photo__text p { font-size: 16px; color: rgba(255,255,255,.75); }
+
+    /* Neighbourhood highlight cards */
+    .neighbourhood-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px;
+      margin-top: 32px;
+    }
+    .nb-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 22px 18px;
+      display: flex; align-items: flex-start; gap: 14px;
+      transition: box-shadow var(--transition), transform var(--transition);
+    }
+    .nb-card:hover { box-shadow: var(--shadow-md); transform: translateY(-3px); }
+    .nb-card__icon {
+      width: 44px; height: 44px; flex-shrink: 0;
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+    }
+    .nb-card__icon--green { background: var(--green-light); }
+    .nb-card__icon--red   { background: var(--red-light); }
+    .nb-card__walk {
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--green); margin-bottom: 3px;
+    }
+    .nb-card__name { font-size: 14px; font-weight: 600; margin-bottom: 2px; }
+    .nb-card__desc { font-size: 12px; color: var(--text-muted); line-height: 1.45; }
+
+    /* Map container — large */
+    .map-wrap {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-md);
+      height: 460px;
+      border: 1px solid var(--border);
+    }
+    .map-wrap iframe { width: 100%; height: 100%; border: none; display: block; }
+
+    /* Info card */
+    .loc-info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+    }
+    .loc-info-card__head {
+      background: var(--green);
+      color: #fff;
+      padding: 20px 24px;
+    }
+    .loc-info-card__head h3 {
+      font-family: var(--font-display);
+      font-size: 22px; font-weight: 400;
+    }
+    .loc-info-card__head p { font-size: 13px; color: rgba(255,255,255,.7); margin-top: 2px; }
+    .loc-info-row {
+      display: flex; align-items: flex-start; gap: 14px;
+      padding: 16px 24px;
+      border-bottom: 1px solid var(--border);
+    }
+    .loc-info-row:last-child { border-bottom: none; }
+    .loc-info-icon {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--green-light);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+    }
+    .loc-info-icon.red { background: var(--red-light); }
+    .loc-info-label {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--text-muted); margin-bottom: 3px;
+    }
+    .loc-info-val { font-size: 14px; color: var(--text); line-height: 1.55; }
+    .loc-info-val a { color: var(--green); font-weight: 500; }
+
+    /* Hours grid */
+    .hours-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 6px; margin-top: 16px;
+    }
+    .day-card {
+      background: var(--off-white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 10px 6px;
+      text-align: center; font-size: 12px;
+    }
+    .day-card.open {
+      background: var(--green-light);
+      border-color: var(--green-muted);
+      color: var(--green);
+    }
+    .day-card.closed { color: var(--text-muted); }
+    .day-card__day { font-weight: 700; font-size: 10px; letter-spacing: .04em; text-transform: uppercase; margin-bottom: 4px; }
+    .day-card__time { font-size: 11px; font-weight: 500; }
+
+    /* Directions step list */
+    .dir-list { list-style: none; display: flex; flex-direction: column; gap: 0; margin-top: 28px; }
+    .dir-step {
+      display: flex; align-items: flex-start; gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid var(--border);
+      position: relative;
+    }
+    .dir-step:last-child { border-bottom: none; }
+    .dir-step__num {
+      width: 36px; height: 36px; flex-shrink: 0;
+      background: var(--charcoal);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 700;
+    }
+    .dir-step__from {
+      font-size: 11px; font-weight: 700;
+      text-transform: uppercase; letter-spacing: .06em;
+      color: var(--text-muted); margin-bottom: 4px;
+    }
+    .dir-step__instruction { font-size: 15px; font-weight: 500; color: var(--charcoal); margin-bottom: 3px; }
+    .dir-step__detail { font-size: 13px; color: var(--text-muted); line-height: 1.5; }
+    .dir-step__time {
+      margin-left: auto; flex-shrink: 0;
+      background: var(--green-light);
+      color: var(--green);
+      border-radius: var(--radius-pill);
+      padding: 4px 12px;
+      font-size: 12px; font-weight: 600;
+      white-space: nowrap;
+      align-self: center;
+    }
+
+    /* Transport cards */
+    .transport-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 14px; margin-top: 28px;
+    }
+    .transport-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      display: flex; align-items: flex-start; gap: 14px;
+    }
+    .transport-card__icon {
+      width: 44px; height: 44px;
+      background: var(--red-light);
+      border-radius: var(--radius);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px; flex-shrink: 0;
+    }
+    .transport-card__title { font-weight: 600; font-size: 14px; margin-bottom: 4px; }
+    .transport-card__body  { font-size: 13px; color: var(--text-muted); line-height: 1.55; }
+
+    @media (max-width: 900px) {
+      .loc-section { padding: 40px 20px; }
+      .locatie-hero-photo { height: 240px; }
+      .locatie-hero-photo__overlay { padding: 20px 24px; }
+      .map-wrap { height: 300px; }
+      .locatie-grid { grid-template-columns: 1fr !important; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-overlay"></div>
+<header class="nav" id="main-nav"></header>
+<div class="mobile-nav" id="mobile-nav"></div>
+<div class="cart-backdrop" id="cart-backdrop" onclick="closeCart()"></div>
+<aside class="cart-drawer" id="cart-drawer"></aside>
+<div class="checkout-modal" id="checkout-modal"></div>
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO — exterior photo with title overlay
+     ═══════════════════════════════════════════════════════════ -->
+<div class="locatie-hero-photo">
+  <img src="exterieur.png" alt="Monte Verde exterieur Albert Cuypstraat Amsterdam">
+  <div class="locatie-hero-photo__overlay">
+    <div class="locatie-hero-photo__text">
+      <div class="italian-flag" style="margin-bottom:12px;"><span></span><span></span><span></span></div>
+      <h1 id="loc-heading">Onze <em>Locatie</em></h1>
+      <p id="loc-sub">Albert Cuypstraat 15H · Amsterdam De Pijp</p>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     NEIGHBOURHOOD DESCRIPTION
+     ═══════════════════════════════════════════════════════════ -->
+<section class="loc-section" style="background:var(--green-light);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;">
+      <div>
+        <div class="section__label reveal" id="nb-label">De buurt</div>
+        <h2 class="section__title reveal" style="font-size:clamp(28px,4vw,48px);margin-bottom:14px;" id="nb-heading">
+          Hartje Amsterdam,<br><em>midden in De Pijp</em>
+        </h2>
+        <p style="font-size:15px;line-height:1.8;color:var(--text-muted);margin-bottom:14px;" class="reveal" id="nb-text1">
+          Monte Verde ligt op de levendige <strong style="color:var(--charcoal);">Albert Cuypstraat</strong> in Amsterdam De Pijp — één van de meest gezellige en bruisende buurten van de stad. Op loopafstand van de beroemde <strong style="color:var(--charcoal);">Albert Cuypmarkt</strong>, de dagelijkse buitenmarkt van Amsterdam.
+        </p>
+        <p style="font-size:15px;line-height:1.8;color:var(--text-muted);" class="reveal" id="nb-text2">
+          Op slechts één metrostation afstand van het <strong style="color:var(--charcoal);">kloppende centrum</strong> van Amsterdam, en op een rustige wandeling van het wereldberoemde <strong style="color:var(--charcoal);">Museumplein</strong> met het Rijksmuseum en het Van Gogh Museum. De perfecte locatie voor een heerlijk Italiaans diner — voor, na of tussen het stadsgenieten door.
+        </p>
+      </div>
+      <div class="neighbourhood-grid reveal">
+        <div class="nb-card">
+          <div class="nb-card__icon nb-card__icon--green">🛒</div>
+          <div>
+            <div class="nb-card__walk" id="nb-walk1">2 min. lopen</div>
+            <div class="nb-card__name" id="nb-name1">Albert Cuypmarkt</div>
+            <div class="nb-card__desc" id="nb-desc1">De grootste dagmarkt van Nederland, pal om de hoek</div>
+          </div>
+        </div>
+        <div class="nb-card">
+          <div class="nb-card__icon nb-card__icon--red">🏛️</div>
+          <div>
+            <div class="nb-card__walk" id="nb-walk2">12 min. lopen</div>
+            <div class="nb-card__name" id="nb-name2">Museumplein</div>
+            <div class="nb-card__desc" id="nb-desc2">Rijksmuseum, Van Gogh Museum & Stedelijk Museum</div>
+          </div>
+        </div>
+        <div class="nb-card">
+          <div class="nb-card__icon nb-card__icon--green">🚇</div>
+          <div>
+            <div class="nb-card__walk" id="nb-walk3">1 metro stop</div>
+            <div class="nb-card__name" id="nb-name3">Stadscentrum</div>
+            <div class="nb-card__desc" id="nb-desc3">Metro 52 richting Centraal Station</div>
+          </div>
+        </div>
+        <div class="nb-card">
+          <div class="nb-card__icon nb-card__icon--red">🌿</div>
+          <div>
+            <div class="nb-card__walk" id="nb-walk4">3 min. lopen</div>
+            <div class="nb-card__name" id="nb-name4">Sarphatipark</div>
+            <div class="nb-card__desc" id="nb-desc4">Rustig stadspark voor een wandeling na het diner</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MAP + INFO CARD (side by side)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="loc-section" style="padding-top:0;">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1.5fr 1fr;gap:28px;align-items:start;" class="locatie-grid">
+
+      <!-- MAP -->
+      <div>
+        <div class="map-wrap" id="map-wrap">
+          <iframe
+            src="https://www.openstreetmap.org/export/embed.html?bbox=4.879%2C52.350%2C4.896%2C52.360&amp;layer=mapnik&amp;marker=52.3547638%2C4.8873327"
+            allowfullscreen
+            title="Monte Verde op de kaart"
+            style="width:100%;height:100%;border:none;display:block;">
+          </iframe>
+        </div>
+        <div style="margin-top:12px;display:flex;gap:10px;flex-wrap:wrap;">
+          <a href="https://maps.google.com/?q=Monte+Verde+Albert+Cuypstraat+15H+Amsterdam" target="_blank" rel="noopener" class="btn btn--red btn--sm">
+            📍 Open in Google Maps
+          </a>
+          <a href="bestelling.html" class="btn btn--outline-dark btn--sm">Bestel voor afhalen</a>
+        </div>
+      </div>
+
+      <!-- INFO CARD -->
+      <div class="reveal">
+        <div class="section__label reveal" id="info-header-label" style="margin-bottom:16px;">Praktisch</div>
+        <div class="loc-info-card">
+          <div class="loc-info-card__head">
+            <h3>Monte Verde</h3>
+            <p id="info-card-sub">Italiaans restaurant in Amsterdam De Pijp</p>
+          </div>
+          <div class="loc-info-row">
+            <div class="loc-info-icon">📍</div>
+            <div>
+              <div class="loc-info-label" id="label-addr">Adres</div>
+              <div class="loc-info-val">Albert Cuypstraat 15H<br>1072 CK Amsterdam</div>
+            </div>
+          </div>
+          <div class="loc-info-row">
+            <div class="loc-info-icon red">🕐</div>
+            <div>
+              <div class="loc-info-label" id="label-hours">Openingstijden</div>
+              <div class="loc-info-val" id="hours-text">
+                <strong>Zaterdag: 16:00 – 22:00</strong><br>
+                <span style="color:var(--text-muted);font-size:13px;">Ma–Vr & Zo: gesloten</span>
+              </div>
+            </div>
+          </div>
+          <div class="loc-info-row">
+            <div class="loc-info-icon">📞</div>
+            <div>
+              <div class="loc-info-label" id="label-phone">Telefoon</div>
+              <div class="loc-info-val"><a href="tel:0206751165">020 675 11 65</a></div>
+            </div>
+          </div>
+          <div class="loc-info-row">
+            <div class="loc-info-icon red">⭐</div>
+            <div>
+              <div class="loc-info-label" id="label-rating">Beoordeling</div>
+              <div class="loc-info-val">
+                <span style="color:#FFB800;">★★★★½</span>
+                <span style="margin-left:6px;font-size:13px;color:var(--text-muted);">4.3 / 5 · Google Reviews</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Weekly schedule -->
+        <div style="margin-top:20px;" class="reveal">
+          <div style="font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--text-muted);margin-bottom:10px;" id="schedule-title">Weekoverzicht</div>
+          <div class="hours-grid" id="hours-grid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     STEP-BY-STEP DIRECTIONS
+     ═══════════════════════════════════════════════════════════ -->
+<section class="loc-section" style="background:var(--off-white);">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:start;">
+
+      <!-- From Centre / CS -->
+      <div>
+        <div class="section__label reveal" id="dir-label">Routebeschrijving</div>
+        <h2 class="section__title reveal" style="font-size:clamp(24px,3.5vw,40px);margin-bottom:6px;" id="dir-heading">
+          Hoe komt u bij <em>ons?</em>
+        </h2>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:0;" class="reveal" id="dir-sub">
+          Kies hieronder uw vertrekpunt voor stap-voor-stap instructies.
+        </p>
+
+        <ol class="dir-list reveal">
+          <li class="dir-step">
+            <div class="dir-step__num">1</div>
+            <div>
+              <div class="dir-step__from" id="dir1-from">Vanaf Centraal Station</div>
+              <div class="dir-step__instruction" id="dir1-inst">Neem metro 52 richting Noord/Zuid</div>
+              <div class="dir-step__detail" id="dir1-detail">Stap in op Centraal Station, richting Zuid. Rijd 3 stops naar <strong>Vijzelgracht</strong>.</div>
+            </div>
+            <div class="dir-step__time" id="dir1-time">~8 min</div>
+          </li>
+          <li class="dir-step">
+            <div class="dir-step__num">2</div>
+            <div>
+              <div class="dir-step__from" id="dir2-from">Vanaf Vijzelgracht metro</div>
+              <div class="dir-step__instruction" id="dir2-inst">Loop richting Ferdinand Bolstraat</div>
+              <div class="dir-step__detail" id="dir2-detail">Volg de Ferdinand Bolstraat richting de Albert Cuypstraat. Sla rechtsaf.</div>
+            </div>
+            <div class="dir-step__time" id="dir2-time">~6 min</div>
+          </li>
+          <li class="dir-step">
+            <div class="dir-step__num">3</div>
+            <div>
+              <div class="dir-step__from" id="dir3-from">Op de Albert Cuypstraat</div>
+              <div class="dir-step__instruction" id="dir3-inst">Nummer 15H — wij zijn er!</div>
+              <div class="dir-step__detail" id="dir3-detail">Monte Verde bevindt zich links op de Albert Cuypstraat, naast de bekende markt. Zoek het groene uithangbord.</div>
+            </div>
+            <div class="dir-step__time" id="dir3-time">Aankomst</div>
+          </li>
+        </ol>
+      </div>
+
+      <!-- From Museumplein / alternative -->
+      <div>
+        <div class="section__label reveal" id="dir2-label" style="color:var(--red);" >Alternatieve route</div>
+        <h2 class="section__title reveal" style="font-size:clamp(24px,3.5vw,40px);margin-bottom:6px;" id="dir2-heading">
+          Vanaf het <em class="red">Museumplein</em>
+        </h2>
+        <p style="font-size:14px;color:var(--text-muted);margin-bottom:0;" class="reveal" id="dir2-sub">
+          Vlakbij het Rijksmuseum en het Van Gogh Museum? Wij zijn een korte wandeling verwijderd.
+        </p>
+
+        <ol class="dir-list reveal">
+          <li class="dir-step">
+            <div class="dir-step__num">1</div>
+            <div>
+              <div class="dir-step__from" id="alt1-from">Vanaf het Museumplein</div>
+              <div class="dir-step__instruction" id="alt1-inst">Loop via Hobbemastraat of Van Baerlestraat</div>
+              <div class="dir-step__detail" id="alt1-detail">Loop langs het Rijksmuseum richting De Pijp. Ga de Van Ostadestraat of Cornelis Troostplein in.</div>
+            </div>
+            <div class="dir-step__time" id="alt1-time">~10 min</div>
+          </li>
+          <li class="dir-step">
+            <div class="dir-step__num">2</div>
+            <div>
+              <div class="dir-step__from" id="alt2-from">Via De Pijp</div>
+              <div class="dir-step__instruction" id="alt2-inst">Richting de Albert Cuypstraat</div>
+              <div class="dir-step__detail" id="alt2-detail">Volg de sfeervolle straten van De Pijp. Sla de Albert Cuypstraat in — de markt is uw gids.</div>
+            </div>
+            <div class="dir-step__time" id="alt2-time">~4 min</div>
+          </li>
+          <li class="dir-step">
+            <div class="dir-step__num">3</div>
+            <div>
+              <div class="dir-step__from" id="alt3-from">Albert Cuypstraat</div>
+              <div class="dir-step__instruction" id="alt3-inst">Nummer 15H — welkom!</div>
+              <div class="dir-step__detail" id="alt3-detail">Pal naast de markt, links op de Albert Cuypstraat. Herkenbaar aan het groene bord met Monte Verde.</div>
+            </div>
+            <div class="dir-step__time" id="alt3-time">Aankomst</div>
+          </li>
+        </ol>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     TRANSPORT CARDS
+     ═══════════════════════════════════════════════════════════ -->
+<section class="loc-section">
+  <div class="container">
+    <div class="section__label reveal" id="transport-label">Bereikbaarheid</div>
+    <h2 class="section__title reveal" style="font-size:clamp(24px,3.5vw,42px);" id="transport-heading">
+      Hoe kunt u ons <em>bereiken?</em>
+    </h2>
+    <div class="transport-grid">
+      <div class="transport-card reveal">
+        <div class="transport-card__icon">🚇</div>
+        <div>
+          <div class="transport-card__title" id="metro-title">Metro</div>
+          <div class="transport-card__body" id="metro-body">
+            <strong>Lijn 52</strong> (Noord/Zuid) · Halte <strong>Vijzelgracht</strong><br>
+            6 min. lopen via Ferdinand Bolstraat
+          </div>
+        </div>
+      </div>
+      <div class="transport-card reveal">
+        <div class="transport-card__icon">🚃</div>
+        <div>
+          <div class="transport-card__title" id="tram-title">Tram</div>
+          <div class="transport-card__body" id="tram-body">
+            <strong>Lijn 4</strong> · Halte <strong>Albert Cuyp</strong><br>
+            Pal voor de deur, 1 min. lopen
+          </div>
+        </div>
+      </div>
+      <div class="transport-card reveal">
+        <div class="transport-card__icon">🚌</div>
+        <div>
+          <div class="transport-card__title" id="bus-title">Bus</div>
+          <div class="transport-card__body" id="bus-body">
+            <strong>Lijnen 16 & 24</strong> richting De Pijp<br>
+            Halte Ferdinand Bolstraat, 3 min. lopen
+          </div>
+        </div>
+      </div>
+      <div class="transport-card reveal">
+        <div class="transport-card__icon">🚲</div>
+        <div>
+          <div class="transport-card__title" id="bike-title">Fiets</div>
+          <div class="transport-card__body" id="bike-body">
+            Ruime stallingsmogelijkheden direct voor de deur — Amsterdam is tenslotte fietsstad!
+          </div>
+        </div>
+      </div>
+      <div class="transport-card reveal">
+        <div class="transport-card__icon">🚗</div>
+        <div>
+          <div class="transport-card__title" id="car-title">Auto</div>
+          <div class="transport-card__body" id="car-body">
+            Parkeren in de buurt via <strong>P+R</strong> of straatparkeren. Navigeer naar Albert Cuypstraat 15H, Amsterdam.
+          </div>
+        </div>
+      </div>
+      <div class="transport-card reveal">
+        <div class="transport-card__icon">🚶</div>
+        <div>
+          <div class="transport-card__title" id="walk-title">Te voet</div>
+          <div class="transport-card__body" id="walk-body">
+            <strong>2 min.</strong> van Albert Cuypmarkt<br>
+            <strong>12 min.</strong> van het Museumplein<br>
+            <strong>3 min.</strong> van Sarphatipark
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer__brand">
+        <img src="logo.png" alt="Monte Verde logo">
+        Monte Verde
+      </div>
+      <p class="footer__desc">Authentiek Italiaans restaurant op de Albert Cuypstraat in Amsterdam.</p>
+    </div>
+    <div>
+      <h4>Navigatie</h4>
+      <ul data-footer-nav></ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:0206751165">020 675 11 65</a></li>
+        <li><a href="locatie.html">Albert Cuypstraat 15H</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom container">
+    <span>© 2026 Monte Verde Amsterdam</span>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/menu-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+const DAYS_NL = ['Ma','Di','Wo','Do','Vr','Za','Zo'];
+const DAYS_EN = ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
+
+function renderHoursGrid() {
+  const days = currentLang === 'nl' ? DAYS_NL : DAYS_EN;
+  const el = document.getElementById('hours-grid');
+  if (!el) return;
+  el.innerHTML = days.map((d,i) => `
+    <div class="day-card ${i===5 ? 'open' : 'closed'}">
+      <div class="day-card__day">${d}</div>
+      <div class="day-card__time">${i===5 ? '16–22' : (currentLang==='nl'?'Ges.':'Cl.')}</div>
+    </div>`
+  ).join('');
+}
+
+const _orig = applyLang;
+applyLang = function() {
+  _orig();
+  const nl = currentLang === 'nl';
+  // Hero
+  document.getElementById('loc-heading').innerHTML = nl ? 'Onze <em>Locatie</em>' : 'Our <em>Location</em>';
+  document.getElementById('loc-sub').textContent = nl ? 'Albert Cuypstraat 15H · Amsterdam De Pijp' : 'Albert Cuypstraat 15H · Amsterdam De Pijp';
+  // Neighbourhood
+  document.getElementById('nb-label').textContent = nl ? 'De buurt' : 'The neighbourhood';
+  document.getElementById('nb-heading').innerHTML = nl ? 'Hartje Amsterdam,<br><em>midden in De Pijp</em>' : 'Heart of Amsterdam,<br><em>in the middle of De Pijp</em>';
+  document.getElementById('nb-text1').innerHTML = nl
+    ? 'Monte Verde ligt op de levendige <strong style="color:var(--charcoal);">Albert Cuypstraat</strong> in Amsterdam De Pijp — één van de meest gezellige buurten van de stad. Op loopafstand van de beroemde <strong style="color:var(--charcoal);">Albert Cuypmarkt</strong>, de dagelijkse buitenmarkt van Amsterdam.'
+    : 'Monte Verde is located on the vibrant <strong style="color:var(--charcoal);">Albert Cuypstraat</strong> in Amsterdam De Pijp — one of the city\'s most charming neighbourhoods. A short walk from the famous <strong style="color:var(--charcoal);">Albert Cuypmarkt</strong>, Amsterdam\'s largest daily outdoor market.';
+  document.getElementById('nb-text2').innerHTML = nl
+    ? 'Op slechts één metrostation afstand van het <strong style="color:var(--charcoal);">stadscentrum</strong>, en op een korte wandeling van het <strong style="color:var(--charcoal);">Museumplein</strong> met het Rijksmuseum en het Van Gogh Museum.'
+    : 'Just one metro stop from the <strong style="color:var(--charcoal);">city centre</strong>, and a short walk from <strong style="color:var(--charcoal);">Museumplein</strong> with the Rijksmuseum and Van Gogh Museum.';
+  // Neighbourhood cards
+  document.getElementById('nb-walk1').textContent = nl ? '2 min. lopen' : '2 min. walk';
+  document.getElementById('nb-name1').textContent = 'Albert Cuypmarkt';
+  document.getElementById('nb-desc1').textContent = nl ? "De grootste dagmarkt van Nederland, pal om de hoek" : "The largest daily market in the Netherlands, right around the corner";
+  document.getElementById('nb-walk2').textContent = nl ? '12 min. lopen' : '12 min. walk';
+  document.getElementById('nb-name2').textContent = 'Museumplein';
+  document.getElementById('nb-desc2').textContent = nl ? "Rijksmuseum, Van Gogh Museum & Stedelijk Museum" : "Rijksmuseum, Van Gogh Museum & Stedelijk Museum";
+  document.getElementById('nb-walk3').textContent = nl ? '1 metro stop' : '1 metro stop';
+  document.getElementById('nb-name3').textContent = nl ? 'Stadscentrum' : 'City centre';
+  document.getElementById('nb-desc3').textContent = nl ? "Metro 52 richting Centraal Station" : "Metro 52 toward Central Station";
+  document.getElementById('nb-walk4').textContent = nl ? '3 min. lopen' : '3 min. walk';
+  document.getElementById('nb-name4').textContent = 'Sarphatipark';
+  document.getElementById('nb-desc4').textContent = nl ? "Rustig stadspark voor een wandeling na het diner" : "Peaceful city park for a stroll after dinner";
+  // Map
+  document.getElementById('map-label').textContent = nl ? 'Kaart' : 'Map';
+  document.getElementById('info-header-label').textContent = nl ? 'Praktisch' : 'Practical info';
+  document.getElementById('info-card-sub').textContent = nl ? 'Italiaans restaurant in Amsterdam De Pijp' : 'Italian restaurant in Amsterdam De Pijp';
+  document.getElementById('label-addr').textContent = nl ? 'Adres' : 'Address';
+  document.getElementById('label-hours').textContent = nl ? 'Openingstijden' : 'Opening hours';
+  document.getElementById('hours-text').innerHTML = nl
+    ? '<strong>Zaterdag: 16:00 – 22:00</strong><br><span style="color:var(--text-muted);font-size:13px;">Ma–Vr & Zo: gesloten</span>'
+    : '<strong>Saturday: 16:00 – 22:00</strong><br><span style="color:var(--text-muted);font-size:13px;">Mon–Fri & Sun: closed</span>';
+  document.getElementById('label-phone').textContent = nl ? 'Telefoon' : 'Phone';
+  document.getElementById('label-rating').textContent = nl ? 'Beoordeling' : 'Rating';
+  document.getElementById('schedule-title').textContent = nl ? 'Weekoverzicht' : 'Weekly schedule';
+  // Directions
+  document.getElementById('dir-label').textContent = nl ? 'Routebeschrijving' : 'Directions';
+  document.getElementById('dir-heading').innerHTML = nl ? 'Hoe komt u bij <em>ons?</em>' : 'How to <em>reach us?</em>';
+  document.getElementById('dir-sub').textContent = nl ? 'Kies hieronder uw vertrekpunt voor stap-voor-stap instructies.' : 'Choose your starting point for step-by-step instructions below.';
+  document.getElementById('dir2-label').textContent = nl ? 'Alternatieve route' : 'Alternative route';
+  document.getElementById('dir2-heading').innerHTML = nl ? 'Vanaf het <em class="red">Museumplein</em>' : 'From <em class="red">Museumplein</em>';
+  // Transport
+  document.getElementById('transport-label').textContent = nl ? 'Bereikbaarheid' : 'Getting here';
+  document.getElementById('transport-heading').innerHTML = nl ? 'Hoe kunt u ons <em>bereiken?</em>' : 'How to <em>reach us?</em>';
+  document.getElementById('metro-title').textContent = nl ? 'Metro' : 'Metro';
+  document.getElementById('metro-body').innerHTML = nl ? '<strong>Lijn 52</strong> (Noord/Zuid) · Halte <strong>Vijzelgracht</strong><br>6 min. lopen via Ferdinand Bolstraat' : '<strong>Line 52</strong> (North/South) · Stop <strong>Vijzelgracht</strong><br>6 min. walk via Ferdinand Bolstraat';
+  document.getElementById('tram-title').textContent = nl ? 'Tram' : 'Tram';
+  document.getElementById('tram-body').innerHTML = nl ? '<strong>Lijn 4</strong> · Halte <strong>Albert Cuyp</strong><br>Pal voor de deur, 1 min. lopen' : '<strong>Line 4</strong> · Stop <strong>Albert Cuyp</strong><br>Right outside, 1 min. walk';
+  document.getElementById('bus-title').textContent = nl ? 'Bus' : 'Bus';
+  document.getElementById('bus-body').innerHTML = nl ? '<strong>Lijnen 16 & 24</strong> richting De Pijp<br>Halte Ferdinand Bolstraat, 3 min. lopen' : '<strong>Lines 16 & 24</strong> toward De Pijp<br>Ferdinand Bolstraat stop, 3 min. walk';
+  document.getElementById('bike-title').textContent = nl ? 'Fiets' : 'Bicycle';
+  document.getElementById('bike-body').textContent = nl ? 'Ruime stallingsmogelijkheden direct voor de deur — Amsterdam is tenslotte fietsstad!' : 'Ample bike parking right outside the door — Amsterdam is a cycling city after all!';
+  document.getElementById('car-title').textContent = nl ? 'Auto' : 'Car';
+  document.getElementById('car-body').innerHTML = nl ? 'Parkeren via <strong>P+R</strong> of straatparkeren. Navigeer naar Albert Cuypstraat 15H, Amsterdam.' : 'Park at a <strong>P+R</strong> or street parking. Navigate to Albert Cuypstraat 15H, Amsterdam.';
+  document.getElementById('walk-title').textContent = nl ? 'Te voet' : 'On foot';
+  document.getElementById('walk-body').innerHTML = nl
+    ? '<strong>2 min.</strong> van Albert Cuypmarkt<br><strong>12 min.</strong> van Museumplein<br><strong>3 min.</strong> van Sarphatipark'
+    : '<strong>2 min.</strong> from Albert Cuypmarkt<br><strong>12 min.</strong> from Museumplein<br><strong>3 min.</strong> from Sarphatipark';
+  renderHoursGrid();
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  renderHoursGrid();
+
+  // Hero entrance
+  gsap.from('.locatie-hero-photo__text', { opacity:0, y:30, duration:.9, ease:'power3.out', delay:.5 });
+
+  // Day cards
+  gsap.from('.day-card', {
+    opacity:0, y:16, stagger:.05, duration:.4, ease:'power2.out',
+    scrollTrigger:{ trigger:'#hours-grid', start:'top 88%' }
+  });
+
+  // Direction steps
+  gsap.utils.toArray('.dir-step').forEach((el,i) => {
+    gsap.from(el, {
+      opacity:0, x:-24, duration:.5, ease:'power2.out',
+      scrollTrigger:{ trigger:el, start:'top 88%' },
+      delay: i * .08
+    });
+  });
+
+  // Neighbourhood cards
+  gsap.utils.toArray('.nb-card').forEach((el,i) => {
+    gsap.from(el, {
+      opacity:0, y:24, duration:.5, ease:'power2.out',
+      scrollTrigger:{ trigger:el, start:'top 90%' },
+      delay: i * .1
+    });
+  });
+
+
+});
+</script>
+</body>
+</html>

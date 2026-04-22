@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Monte Verde — Italiaans Restaurant Amsterdam</title>
+  <meta name="description" content="Italiaans restaurant Monte Verde op de Albert Cuypstraat in Amsterdam. Elke dag vers gemaakt met topkwaliteit ingrediënten.">
+  <link rel="icon" type="image/png" href="logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    /* ── Compact homepage overrides ─────────────────────────── */
+    #why          { padding: 44px 40px 40px; }
+    #over-ons     { padding: 44px 40px; }
+    #menu-preview { padding: 44px 40px; }
+    #locatie-strip{ padding: 44px 40px; }
+    .reviews-section { padding: 52px 40px; }
+    .photo-strip-section { padding: 16px 40px 0; }
+
+    /* Tighter pillar grid */
+    #why   .pillars { margin-top: 28px; }
+    #why   .pillars .pillar { padding: 24px 20px; }
+    #why   .section__title { font-size: clamp(28px,4vw,48px); margin-bottom: 10px; }
+    #menu-preview .section__title { font-size: clamp(28px,4vw,48px); }
+    #why   .section__body  { font-size: 15px; }
+
+    /* Over Ons tighter */
+    #over-ons .section__title { font-size: clamp(28px,4vw,52px); margin-bottom: 12px; }
+    #over-ons .section__body  { font-size: 15px; }
+    #over-ons .about-split    { gap: 48px; }
+    #over-ons .photo-grid__item:first-child { height: 280px; }
+    #over-ons .photo-grid__item:not(:first-child) { height: 128px; }
+
+    /* Menu preview tighter */
+    #menu-preview .pillars { margin-top: 0; }
+    #menu-preview .pillars .pillar { padding: 20px 18px; }
+    #menu-preview .section__body { margin-bottom: 24px !important; }
+
+    /* Review stage height */
+    .review-stage { min-height: 190px; }
+    .review-card { padding: 24px 28px; }
+    .review-text { font-size: 15px; margin-bottom: 14px; }
+    .reviews-aggregate { margin: 16px auto 32px; padding: 14px 24px; }
+    .reviews-aggregate__num { font-size: 52px; }
+
+    /* Location strip tight */
+    #locatie-strip .section__title { font-size: clamp(26px,3.5vw,44px); margin-bottom: 10px; }
+
+    /* ── Chef cinematic strip ─────────────────────────────────── */
+    .chef-strip {
+      position: relative;
+      height: 320px;
+      overflow: hidden;
+    }
+    .chef-strip__img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: center 30%;
+      display: block;
+      transform: scale(1.04);
+      transition: transform 8s ease;
+    }
+    .chef-strip:hover .chef-strip__img { transform: scale(1); }
+    .chef-strip__overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        to right,
+        rgba(30,30,30,.72) 0%,
+        rgba(43,94,69,.45) 60%,
+        rgba(30,30,30,.3) 100%
+      );
+      display: flex; align-items: center;
+      padding: 0 60px;
+    }
+    .chef-strip__content { max-width: 520px; }
+    .chef-strip__eyebrow {
+      font-size: 11px; font-weight: 600;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--green-muted);
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .chef-strip__eyebrow::before {
+      content: ''; width: 28px; height: 1.5px; background: var(--green-muted);
+    }
+    .chef-strip__text {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3.5vw, 46px);
+      font-weight: 300;
+      line-height: 1.15;
+      color: #fff;
+    }
+    .chef-strip__text em { font-style: italic; color: var(--green-muted); }
+
+    /* ── Second photo pair (tight) ──────────────────────────── */
+    .photo-pair {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 12px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 12px 40px 0;
+    }
+    .photo-pair__item {
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      height: 240px;
+    }
+    .photo-pair__item img {
+      width: 100%; height: 100%;
+      object-fit: cover; display: block;
+      transition: transform .6s ease;
+    }
+    .photo-pair__item:hover img { transform: scale(1.05); }
+
+    /* ── Responsive ─────────────────────────────────────────── */
+    @media (max-width: 900px) {
+      #why, #over-ons, #menu-preview, #locatie-strip { padding: 36px 20px; }
+      .reviews-section { padding: 40px 20px; }
+      .photo-strip-section { padding: 12px 20px 0; }
+      .chef-strip { height: 220px; }
+      .chef-strip__overlay { padding: 0 28px; }
+      .photo-pair { grid-template-columns: 1fr; padding: 12px 20px 0; }
+      .photo-pair__item { height: 180px; }
+    }
+  </style>
+</head>
+<body>
+
+<div id="page-overlay"></div>
+<header class="nav" id="main-nav"></header>
+<div class="mobile-nav" id="mobile-nav"></div>
+<div class="cart-backdrop" id="cart-backdrop" onclick="closeCart()"></div>
+<aside class="cart-drawer" id="cart-drawer"></aside>
+<div class="checkout-modal" id="checkout-modal"></div>
+<div class="toast" id="toast"></div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero__bg" style="background-image:url('exterieur.png')"></div>
+  <div class="hero__overlay"></div>
+  <div class="hero__content">
+    <div class="hero__tag" id="hero-tag">Albert Cuypstraat · Amsterdam</div>
+    <h1 class="hero__title" id="hero-title">Buon<br><em>Appetito</em></h1>
+    <p class="hero__sub" id="hero-sub">
+      Authentieke Italiaanse smaken, elke dag vers gemaakt met topkwaliteit ingrediënten — midden in het hart van Amsterdam.
+    </p>
+    <div class="hero__ctas" id="hero-ctas">
+      <a href="menu.html" class="btn btn--primary">Bekijk ons menu</a>
+      <a href="bestelling.html" class="btn btn--outline">Bestelling afhalen</a>
+    </div>
+    <div class="hero__stats" id="hero-stats">
+      <div class="hero__stat">
+        <div class="hero__stat-stars">★★★★★</div>
+        <span class="hero__stat-val">4.3</span>
+        <span class="hero__stat-label">Google Reviews</span>
+      </div>
+      <div class="hero__stat-divider"></div>
+      <div class="hero__stat">
+        <span class="hero__stat-val">Elke dag</span>
+        <span class="hero__stat-label">vers gemaakt</span>
+      </div>
+      <div class="hero__stat-divider"></div>
+      <div class="hero__stat">
+        <span class="hero__stat-val">100%</span>
+        <span class="hero__stat-label">verse ingrediënten</span>
+      </div>
+      <div class="hero__stat-divider"></div>
+      <div class="hero__stat">
+        <span class="hero__stat-val">Jaren</span>
+        <span class="hero__stat-label">in De Pijp</span>
+      </div>
+    </div>
+  </div>
+  <div class="scroll-indicator">
+    <div class="scroll-indicator__line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOD PHOTO STRIP  (direct below hero, no gap)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="photo-strip-section">
+  <div class="photo-strip">
+    <div class="photo-strip__item">
+      <img src="eten1.png" alt="Verse pizza's Monte Verde">
+      <div class="photo-strip__caption">
+        <strong>Verse Pizza's</strong><span>Dagelijks gebakken deeg</span>
+      </div>
+    </div>
+    <div class="photo-strip__item">
+      <img src="eten2.png" alt="Huisgemaakte pasta Monte Verde">
+      <div class="photo-strip__caption">
+        <strong>Huisgemaakte Pasta</strong><span>Italiaanse traditie</span>
+      </div>
+    </div>
+    <div class="photo-strip__item">
+      <img src="eten3.png" alt="Tiramisu Monte Verde">
+      <div class="photo-strip__caption">
+        <strong>Dolci Italiani</strong><span>Authentieke nagerechten</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     CHEF CINEMATIC STRIP  (new photo — no gap)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="chef-strip" style="margin-top:12px;">
+  <img class="chef-strip__img" src="chef.png" alt="Chef bereidt verse pizza">
+  <div class="chef-strip__overlay">
+    <div class="chef-strip__content">
+      <div class="chef-strip__eyebrow">Onze keuken</div>
+      <h2 class="chef-strip__text">
+        Elke pizza bereid met<br><em>verse mozzarella</em><br>en handgemaakt deeg
+      </h2>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     REVIEW SLIDER  (dark bg — directly after chef strip)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="reviews-section" id="reviews" style="margin-top:0;padding-top:28px;padding-bottom:0;">
+  <div class="container">
+    <div class="reviews-aggregate">
+      <span class="reviews-aggregate__num">4.3</span>
+      <div class="reviews-aggregate__right">
+        <div class="reviews-aggregate__stars">★★★★½</div>
+        <div class="reviews-aggregate__label">Gebaseerd op Google Reviews</div>
+      </div>
+    </div>
+    <div class="review-stage" id="review-stage">
+      <div class="review-card is-active" id="rc-0">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="review-text">"Heerlijk eten! De pizza was fantastisch vers en de korst precies goed knapperig. Bediening vriendelijk en snel. Absoluut een aanrader in De Pijp!"</p>
+        <div class="review-author">
+          <div class="review-author__avatar" style="background:var(--green-mid);">M</div>
+          <div><div class="review-author__name">Marieke van der Berg</div><div class="review-author__via">via Google Reviews</div></div>
+        </div>
+      </div>
+      <div class="review-card" id="rc-1">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span style="opacity:.3;">★</span></div>
+        <p class="review-text">"Goede Italiaanse keuken met echte sfeer. De pasta carbonara was romig en smaakvol. De portie was ruim voor de prijs. Zeker terugkomen!"</p>
+        <div class="review-author">
+          <div class="review-author__avatar" style="background:var(--red);">T</div>
+          <div><div class="review-author__name">Thomas Bakker</div><div class="review-author__via">via Google Reviews</div></div>
+        </div>
+      </div>
+      <div class="review-card" id="rc-2">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span>★</span></div>
+        <p class="review-text">"Really enjoyed our evening here. Fresh ingredients, generous portions, the staff made us feel very welcome. Best pizza in De Pijp — will definitely be back!"</p>
+        <div class="review-author">
+          <div class="review-author__avatar" style="background:#4A7FA8;">J</div>
+          <div><div class="review-author__name">James Richardson</div><div class="review-author__via">via Google Reviews</div></div>
+        </div>
+      </div>
+      <div class="review-card" id="rc-3">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span style="opacity:.3;">★</span></div>
+        <p class="review-text">"Fijne avond gehad met het gezin. De lasagna was bijzonder goed. Gezellige locatie pal op de Albert Cuypstraat — we komen zeker terug."</p>
+        <div class="review-author">
+          <div class="review-author__avatar" style="background:#8B5E3C;">S</div>
+          <div><div class="review-author__name">Sophie Meier</div><div class="review-author__via">via Google Reviews</div></div>
+        </div>
+      </div>
+      <div class="review-card" id="rc-4">
+        <div class="review-stars"><span>★</span><span>★</span><span>★</span><span>★</span><span style="opacity:.3;">★</span></div>
+        <p class="review-text">"Lekker eten voor een eerlijke prijs. De tiramisu als afsluiter was geweldig. Sfeervolle zaak — zeker een aanrader als u in de buurt bent!"</p>
+        <div class="review-author">
+          <div class="review-author__avatar" style="background:var(--green);">F</div>
+          <div><div class="review-author__name">Femke Koster</div><div class="review-author__via">via Google Reviews</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="review-dots" id="review-dots">
+      <button class="review-dot active" onclick="goToReview(0)"></button>
+      <button class="review-dot" onclick="goToReview(1)"></button>
+      <button class="review-dot" onclick="goToReview(2)"></button>
+      <button class="review-dot" onclick="goToReview(3)"></button>
+      <button class="review-dot" onclick="goToReview(4)"></button>
+    </div>
+    <div style="margin-top:16px;margin-bottom:0;">
+      <a href="https://www.google.com/maps/place/Monte+Verde/@52.3547638,4.8873327,17z/"
+         target="_blank" rel="noopener"
+         class="btn btn--outline" style="border-color:rgba(255,255,255,.35);">
+        Lees alle reviews op Google
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     QUALITY BADGES + WHY US  (green-light bg)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="section section--alt" id="why">
+  <div class="container">
+    <div class="quality-badges reveal">
+      <span class="quality-badge"><span class="quality-badge__dot quality-badge__dot--green"></span>Elke dag vers gemaakt</span>
+      <span class="quality-badge"><span class="quality-badge__dot quality-badge__dot--red"></span>Topkwaliteit ingrediënten</span>
+      <span class="quality-badge"><span class="quality-badge__dot quality-badge__dot--green"></span>Authentieke Italiaanse recepten</span>
+      <span class="quality-badge"><span class="quality-badge__dot quality-badge__dot--red"></span>4.3 ★ Google beoordeeld</span>
+      <span class="quality-badge"><span class="quality-badge__dot quality-badge__dot--green"></span>Vegetarische opties beschikbaar</span>
+    </div>
+    <div style="text-align:center;margin:24px 0 12px;">
+      <div class="italian-flag"><span></span><span></span><span></span></div>
+    </div>
+    <div style="text-align:center;">
+      <div class="section__label reveal">Waarom Monte Verde</div>
+      <h2 class="section__title reveal" style="text-align:center;margin:0 auto 10px;">
+        Italiaanse traditie,<br><em>Amsterdamse hartelijkheid</em>
+      </h2>
+      <p class="section__body reveal" style="margin:0 auto;text-align:center;">
+        Wij bereiden elk gerecht dagelijks vers — geen pakjes, geen diepvries, geen compromissen.
+      </p>
+    </div>
+    <div class="pillars">
+      <div class="pillar reveal">
+        <div class="pillar__icon">🍕</div>
+        <h3 class="pillar__title">Elke Dag Vers</h3>
+        <p class="pillar__body">Geen conserveringsmiddelen, geen ingevroren producten. Dagelijks vers bereid.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar__icon red">🫒</div>
+        <h3 class="pillar__title">Topkwaliteit</h3>
+        <p class="pillar__body">Uitsluitend de beste Italiaanse ingrediënten — van de tomatensaus tot het deeg.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar__icon">🍷</div>
+        <h3 class="pillar__title">Gezellige Sfeer</h3>
+        <p class="pillar__body">Een warm restaurant op de Albert Cuypstraat, midden in de bruisende Pijp.</p>
+      </div>
+      <div class="pillar reveal">
+        <div class="pillar__icon red">🛵</div>
+        <h3 class="pillar__title">Afhalen Mogelijk</h3>
+        <p class="pillar__body">Bestel online en haal op wanneer het u uitkomt. Snel, makkelijk en altijd vers.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     OVER ONS  (white)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="section" id="over-ons">
+  <div class="container">
+    <div class="about-split">
+      <div>
+        <div class="section__label reveal">Over ons</div>
+        <h2 class="section__title reveal">
+          Een stukje <em>Italië</em><br>in Amsterdam
+        </h2>
+        <p class="section__body reveal">
+          Monte Verde is al jarenlang een vertrouwd gezicht op de Albert Cuypstraat. Onze keuken ademt de sfeer van de zuidelijke Italiaanse regio's: rijke tomatensauzen, handgemaakte pasta, en pizza's gebakken met liefde.
+        </p>
+        <ul style="margin-top:18px;display:flex;flex-direction:column;gap:9px;" class="reveal">
+          <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
+            <span style="width:18px;height:18px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);font-weight:700;">✓</span>
+            <span><strong>Elke dag vers gemaakt</strong> — geen diepvries, geen pakjes</span>
+          </li>
+          <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
+            <span style="width:18px;height:18px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);font-weight:700;">✓</span>
+            <span><strong>Topkwaliteit ingrediënten</strong> — geselecteerde Italiaanse producten</span>
+          </li>
+          <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
+            <span style="width:18px;height:18px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);font-weight:700;">✓</span>
+            <span><strong>4.3 sterren</strong> op Google — door onze gasten beoordeeld</span>
+          </li>
+          <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
+            <span style="width:18px;height:18px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);font-weight:700;">✓</span>
+            <span><strong>Centraal gelegen</strong> — op de Albert Cuypstraat in De Pijp</span>
+          </li>
+        </ul>
+        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;" class="reveal">
+          <a href="bestelling.html" class="btn btn--primary">Bestel nu</a>
+          <a href="menu.html" class="btn btn--outline-dark">Bekijk menu</a>
+        </div>
+      </div>
+      <!-- Photo grid: interior + food photos -->
+      <div class="photo-grid reveal">
+        <div class="photo-grid__item">
+          <img src="interieur.png" alt="Interieur Monte Verde">
+        </div>
+        <div class="photo-grid__item">
+          <img src="eten1.png" alt="Verse pizza Monte Verde">
+        </div>
+        <div class="photo-grid__item">
+          <img src="eten2.png" alt="Pasta Monte Verde">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     SECOND PHOTO PAIR  (visual break, no section padding)
+     ═══════════════════════════════════════════════════════════ -->
+<div class="photo-pair">
+  <div class="photo-pair__item">
+    <img src="exterieur.png" alt="Monte Verde exterieur Albert Cuypstraat">
+  </div>
+  <div class="photo-pair__item">
+    <img src="eten3.png" alt="Tiramisu Monte Verde">
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════════
+     MENU PREVIEW  (green-light bg)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="section section--green" id="menu-preview">
+  <div class="container" style="text-align:center;">
+    <div class="section__label reveal" style="justify-content:center;">Ons aanbod</div>
+    <h2 class="section__title reveal" style="margin:0 auto 10px;">
+      Van <em>pizza</em> tot pasta,<br>van vis tot vlees
+    </h2>
+    <p class="section__body reveal" style="margin:0 auto 24px;text-align:center;">
+      Ons uitgebreide menu biedt voor iedereen iets lekkers — inclusief vegetarische opties, vis, vlees en authentieke huisspecialiteiten.
+    </p>
+    <div class="pillars">
+      <div class="pillar reveal" style="text-align:center;">
+        <div class="pillar__icon" style="margin:0 auto 14px;">🍕</div>
+        <h3 class="pillar__title">21 Pizza's</h3>
+        <p class="pillar__body">Van Margherita tot de rijke Pizza Monte Verde met 9 toppings.</p>
+      </div>
+      <div class="pillar reveal" style="text-align:center;">
+        <div class="pillar__icon red" style="margin:0 auto 14px;">🍝</div>
+        <h3 class="pillar__title">Pasta & Risotto</h3>
+        <p class="pillar__body">Verse pasta in alle variaties — bolognese, carbonara, frutti di mare.</p>
+      </div>
+      <div class="pillar reveal" style="text-align:center;">
+        <div class="pillar__icon" style="margin:0 auto 14px;">🥩</div>
+        <h3 class="pillar__title">Vlees & Vis</h3>
+        <p class="pillar__body">Gegrilde bistecca's, verse vis en huisspecialiteiten.</p>
+      </div>
+    </div>
+    <div style="margin-top:28px;" class="reveal">
+      <a href="menu.html" class="btn btn--primary" style="margin-right:12px;">Volledig menu</a>
+      <a href="bestelling.html" class="btn btn--outline-dark">Bestel online</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     LOCATION STRIP  (red-light bg)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="section section--red" id="locatie-strip">
+  <div class="container" style="text-align:center;">
+    <div class="section__label section__label--red reveal" style="justify-content:center;">Bezoek ons</div>
+    <h2 class="section__title reveal" style="margin:0 auto 10px;">
+      Wij zijn er voor u op de<br><em class="red">Albert Cuypstraat</em>
+    </h2>
+    <p class="section__body reveal" style="margin:0 auto 6px;text-align:center;">
+      Albert Cuypstraat 15H, 1072 CK Amsterdam
+    </p>
+    <p class="reveal" style="margin:0 auto 24px;text-align:center;font-size:18px;font-weight:600;color:var(--charcoal);">
+      Zaterdag 16:00 – 22:00
+    </p>
+    <div class="reveal" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <a href="locatie.html" class="btn btn--red">Bekijk route</a>
+      <a href="tel:0206751165" class="btn btn--outline-dark">020 675 11 65</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════ -->
+<footer>
+  <div class="footer-inner">
+    <div>
+      <div class="footer__brand">
+        <img src="logo.png" alt="Monte Verde logo">
+        Monte Verde
+      </div>
+      <p class="footer__desc">Authentiek Italiaans restaurant op de Albert Cuypstraat in Amsterdam. Elke dag vers gemaakt met topkwaliteit ingrediënten.</p>
+    </div>
+    <div>
+      <h4>Navigatie</h4>
+      <ul data-footer-nav></ul>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="tel:0206751165">020 675 11 65</a></li>
+        <li><a href="locatie.html">Albert Cuypstraat 15H</a></li>
+        <li><a href="locatie.html">1072 CK Amsterdam</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer__bottom container">
+    <span>© 2026 Monte Verde Amsterdam</span>
+    <a href="contact.html">Contact</a>
+  </div>
+</footer>
+
+<!-- GSAP -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="js/menu-data.js"></script>
+<script src="js/app.js"></script>
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+/* ── Hero entrance ─────────────────────────────────────────── */
+const tl = gsap.timeline({ delay: .5 });
+tl.from('#hero-tag',         { opacity:0, y:18, duration:.5, ease:'power3.out' })
+  .from('#hero-title',       { opacity:0, y:50, duration:.8, ease:'power3.out' }, '-=.15')
+  .from('#hero-sub',         { opacity:0, y:22, duration:.6, ease:'power3.out' }, '-=.3')
+  .from('#hero-ctas .btn',   { opacity:0, y:16, stagger:.1,  duration:.5, ease:'back.out(1.5)' }, '-=.2')
+  .from('#hero-stats',       { opacity:0, y:20, duration:.5, ease:'power3.out' }, '-=.1');
+
+/* ── Parallax hero bg ──────────────────────────────────────── */
+gsap.to('.hero__bg', {
+  yPercent: 18, ease:'none',
+  scrollTrigger: { trigger:'.hero', start:'top top', end:'bottom top', scrub:true }
+});
+
+/* ── Photo strip ───────────────────────────────────────────── */
+gsap.utils.toArray('.photo-strip__item').forEach((el, i) => {
+  gsap.from(el, {
+    opacity:0, y:36, duration:.65, ease:'power3.out',
+    scrollTrigger: { trigger: el, start:'top 92%' },
+    delay: i * .1
+  });
+});
+
+/* ── Chef strip parallax ───────────────────────────────────── */
+gsap.from('.chef-strip__content', {
+  opacity: 0, x: -40, duration: .8, ease: 'power3.out',
+  scrollTrigger: { trigger: '.chef-strip', start: 'top 80%' }
+});
+
+/* ── Quality badges ────────────────────────────────────────── */
+gsap.from('.quality-badge', {
+  opacity:0, y:16, stagger:.07, duration:.45, ease:'power2.out',
+  scrollTrigger: { trigger:'.quality-badges', start:'top 90%' }
+});
+
+/* ── Review slider ─────────────────────────────────────────── */
+const cards = gsap.utils.toArray('.review-card');
+const dots  = gsap.utils.toArray('.review-dot');
+let activeIdx = 0, reviewTimer;
+
+function goToReview(next) {
+  const prev = activeIdx;
+  if (next === prev) return;
+  gsap.to(cards[prev], {
+    opacity:0, x:-44, duration:.32, ease:'power2.in',
+    onComplete() {
+      cards[prev].classList.remove('is-active');
+      gsap.set(cards[prev], { x:0 });
+      cards[next].classList.add('is-active');
+      gsap.fromTo(cards[next], { opacity:0, x:56 }, { opacity:1, x:0, duration:.4, ease:'power2.out' });
+    }
+  });
+  dots.forEach((d,i) => d.classList.toggle('active', i===next));
+  activeIdx = next;
+}
+function startAutoSlide() {
+  clearInterval(reviewTimer);
+  reviewTimer = setInterval(() => goToReview((activeIdx+1) % cards.length), 4500);
+}
+dots.forEach((d,i) => d.addEventListener('click', () => { goToReview(i); startAutoSlide(); }));
+startAutoSlide();
+document.getElementById('review-stage').addEventListener('mouseenter', () => clearInterval(reviewTimer));
+document.getElementById('review-stage').addEventListener('mouseleave', startAutoSlide);
+</script>
+</body>
+</html>
