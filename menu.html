@@ -16,9 +16,6 @@
 <div id="page-overlay"></div>
 <header class="nav" id="main-nav"></header>
 <div class="mobile-nav" id="mobile-nav"></div>
-<div class="cart-backdrop" id="cart-backdrop" onclick="closeCart()"></div>
-<aside class="cart-drawer" id="cart-drawer"></aside>
-<div class="checkout-modal" id="checkout-modal"></div>
 <div class="toast" id="toast"></div>
 
 <!-- ── Hero ─────────────────────────────────────────────────── -->
@@ -28,7 +25,7 @@
     <div class="section__label" id="menu-label" style="justify-content:center;">Ons aanbod</div>
     <h1 class="section__title" id="menu-heading" style="margin:0 auto;">Ons <em>Menu</em></h1>
     <p style="font-size:17px;color:var(--text-muted);margin-top:16px;font-weight:300;" id="menu-sub">
-      Klik op een gerecht om het aan uw bestelling toe te voegen.
+      Authentieke Italiaanse keuken — vers bereid in onze keuken.
     </p>
   </div>
 </section>
@@ -101,54 +98,22 @@ function renderMenu() {
     </section>
   `).join('');
 
-  // Scroll reveal per card
-  if (typeof gsap !== 'undefined') {
-    gsap.utils.toArray('.menu-card').forEach((card, i) => {
-      gsap.from(card, {
-        opacity: 0, y: 30,
-        duration: .5, ease: 'power2.out',
-        scrollTrigger: {
-          trigger: card,
-          start: 'top 92%',
-          toggleActions: 'play none none none',
-        },
-        delay: (i % 3) * 0.07
-      });
-    });
-  }
-
   // Active tab on scroll
   initTabScroll();
 }
 
 function buildCard(item, lang) {
-  const inCart = cart.some(c => c.id === item.id);
   const desc = item[`desc_${lang}`] || item.desc_nl || '';
   return `
-    <div class="menu-card" onclick="handleAdd('${item.id}', '${escStr(item[lang])}', ${item.price})">
+    <div class="menu-card menu-card--display">
       <div class="menu-card__info">
         <div class="menu-card__name">${item[lang]}</div>
         ${desc ? `<div class="menu-card__desc">${desc}</div>` : ''}
         <div class="menu-card__footer">
           <span class="menu-card__price">€${item.price.toFixed(2)}</span>
-          <button class="add-btn ${inCart?'in-cart':''}" id="addbtn-${item.id}"
-                  onclick="event.stopPropagation();handleAdd('${item.id}','${escStr(item[lang])}',${item.price})"
-                  title="Toevoegen">+</button>
         </div>
       </div>
     </div>`;
-}
-
-function escStr(s) { return s.replace(/'/g, "\\'"); }
-
-function handleAdd(id, name, price) {
-  addToCart(id, name, price);
-  // Visual feedback on btn
-  const btn = document.getElementById('addbtn-' + id);
-  if (btn) {
-    btn.classList.add('in-cart');
-    gsap.from(btn, { scale: 1.4, duration: .3, ease: 'back.out(2)' });
-  }
 }
 
 function scrollToCategory(id) {
@@ -186,12 +151,11 @@ const _origApplyLang = applyLang;
 applyLang = function() {
   _origApplyLang();
   renderMenu();
-  // Update hero strings
   document.getElementById('menu-label').textContent = currentLang === 'nl' ? 'Ons aanbod' : 'Our offer';
   document.getElementById('menu-heading').innerHTML = currentLang === 'nl' ? 'Ons <em>Menu</em>' : 'Our <em>Menu</em>';
   document.getElementById('menu-sub').textContent = currentLang === 'nl'
-    ? 'Klik op een gerecht om het aan uw bestelling toe te voegen.'
-    : 'Click a dish to add it to your order.';
+    ? 'Authentieke Italiaanse keuken — vers bereid in onze keuken.'
+    : 'Authentic Italian cuisine — freshly prepared in our kitchen.';
 };
 
 /* ── Entrance animation ────────────────────────────────────── */
