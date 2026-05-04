@@ -40,51 +40,27 @@
     /* Location strip tight */
     #locatie-strip .section__title { font-size: clamp(26px,3.5vw,44px); margin-bottom: 10px; }
 
-    /* ── Chef cinematic strip ─────────────────────────────────── */
-    .chef-strip {
-      position: relative;
-      height: 320px;
+    /* ── Food trio (between extra-zaal and reviews) ─────────── */
+    .food-trio {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 16px 40px 0;
+    }
+    .food-trio__item {
+      border-radius: var(--radius-lg);
       overflow: hidden;
+      height: 260px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.08);
     }
-    .chef-strip__img {
+    .food-trio__item img {
       width: 100%; height: 100%;
-      object-fit: cover;
-      object-position: center 30%;
-      display: block;
-      transform: scale(1.04);
-      transition: transform 8s ease;
+      object-fit: cover; display: block;
+      transition: transform .7s ease;
     }
-    .chef-strip:hover .chef-strip__img { transform: scale(1); }
-    .chef-strip__overlay {
-      position: absolute; inset: 0;
-      background: linear-gradient(
-        to right,
-        rgba(30,30,30,.72) 0%,
-        rgba(43,94,69,.45) 60%,
-        rgba(30,30,30,.3) 100%
-      );
-      display: flex; align-items: center;
-      padding: 0 60px;
-    }
-    .chef-strip__content { max-width: 520px; }
-    .chef-strip__eyebrow {
-      font-size: 11px; font-weight: 600;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--green-muted);
-      margin-bottom: 12px;
-      display: flex; align-items: center; gap: 10px;
-    }
-    .chef-strip__eyebrow::before {
-      content: ''; width: 28px; height: 1.5px; background: var(--green-muted);
-    }
-    .chef-strip__text {
-      font-family: var(--font-display);
-      font-size: clamp(26px, 3.5vw, 46px);
-      font-weight: 300;
-      line-height: 1.15;
-      color: #fff;
-    }
-    .chef-strip__text em { font-style: italic; color: var(--green-muted); }
+    .food-trio__item:hover img { transform: scale(1.06); }
 
     /* ── Second photo pair (tight) ──────────────────────────── */
     .photo-pair {
@@ -218,10 +194,10 @@
       #why, #menu-preview, #locatie-strip { padding: 36px 20px; }
       .reviews-section { padding: 40px 20px; }
       .photo-strip-section { padding: 12px 20px 0; }
-      .chef-strip { height: 220px; }
-      .chef-strip__overlay { padding: 0 28px; }
       .photo-pair { grid-template-columns: 1fr; padding: 12px 20px 0; }
       .photo-pair__item { height: 180px; }
+      .food-trio { grid-template-columns: 1fr; gap: 10px; padding: 12px 20px 0; }
+      .food-trio__item { height: 200px; }
       .extra-zaal { padding: 36px 24px; margin: 12px 16px; }
       .extra-zaal__inner {
         grid-template-columns: 1fr;
@@ -316,23 +292,7 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     CHEF CINEMATIC STRIP  (new photo — no gap)
-     ═══════════════════════════════════════════════════════════ -->
-<div class="chef-strip" style="margin-top:12px;">
-  <img class="chef-strip__img" src="chef.png" alt="Chef bereidt verse pizza">
-  <div class="chef-strip__overlay">
-    <div class="chef-strip__content">
-      <div class="chef-strip__eyebrow">Onze keuken</div>
-      <h2 class="chef-strip__text">
-        Elke pizza bereid met<br><em>verse mozzarella</em><br>en handgemaakt deeg
-      </h2>
-    </div>
-  </div>
-</div>
-
-<!-- ═══════════════════════════════════════════════════════════
      EXTRA ZAAL — group/event marketing banner
-     (moved to top — directly after chef strip for max visibility)
      ═══════════════════════════════════════════════════════════ -->
 <section class="extra-zaal" id="extra-zaal">
   <div class="extra-zaal__bg-pattern"></div>
@@ -368,6 +328,15 @@
     </a>
   </div>
 </section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     FOOD TRIO — 3 photos between extra-zaal and reviews
+     ═══════════════════════════════════════════════════════════ -->
+<div class="food-trio">
+  <div class="food-trio__item"><img src="eten1.png" alt="Verse pizza Monte Verde"></div>
+  <div class="food-trio__item"><img src="eten2.png" alt="Huisgemaakte pasta Monte Verde"></div>
+  <div class="food-trio__item"><img src="eten3.png" alt="Italiaans dessert Monte Verde"></div>
+</div>
 
 <!-- ═══════════════════════════════════════════════════════════
      REVIEW SLIDER  (dark bg)
@@ -497,7 +466,7 @@
     <img src="exterieur.jpeg" alt="Monte Verde exterieur Albert Cuypstraat">
   </div>
   <div class="photo-pair__item">
-    <img src="eten3.png" alt="Tiramisu Monte Verde">
+    <img src="interieur2.png" alt="Interieur Monte Verde">
   </div>
 </div>
 
@@ -621,10 +590,13 @@ gsap.utils.toArray('.photo-strip__item').forEach((el, i) => {
   });
 });
 
-/* ── Chef strip parallax ───────────────────────────────────── */
-gsap.from('.chef-strip__content', {
-  opacity: 0, x: -40, duration: .8, ease: 'power3.out',
-  scrollTrigger: { trigger: '.chef-strip', start: 'top 80%' }
+/* ── Food trio reveal ──────────────────────────────────────── */
+gsap.utils.toArray('.food-trio__item').forEach((el, i) => {
+  gsap.from(el, {
+    opacity: 0, scale: 1.05, duration: .7, ease: 'power2.out',
+    scrollTrigger: { trigger: '.food-trio', start: 'top 92%' },
+    delay: i * .12
+  });
 });
 
 /* ── Quality badges ────────────────────────────────────────── */
