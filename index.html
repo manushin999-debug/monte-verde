@@ -115,6 +115,112 @@
     }
     .photo-pair__item:hover img { transform: scale(1.05); }
 
+    /* ── Extra zaal — marketing banner ─────────────────────── */
+    .extra-zaal {
+      position: relative;
+      padding: 56px 40px;
+      margin: 16px 40px;
+      border-radius: var(--radius-lg);
+      background: linear-gradient(135deg, #2b5e45 0%, #1a3f2c 60%, #244a35 100%);
+      color: #fff;
+      overflow: hidden;
+      box-shadow: 0 12px 36px rgba(26,63,44,.18);
+    }
+    .extra-zaal__bg-pattern {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(circle at 90% 10%, rgba(196,30,58,.16) 0%, transparent 45%),
+        radial-gradient(circle at 5% 95%, rgba(255,255,255,.05) 0%, transparent 40%);
+      pointer-events: none;
+    }
+    .extra-zaal__inner {
+      position: relative;
+      display: grid;
+      grid-template-columns: auto 1fr auto;
+      gap: 36px;
+      align-items: center;
+    }
+    .extra-zaal__icon {
+      width: 96px; height: 96px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.10);
+      border: 1.5px solid rgba(255,255,255,.20);
+      display: flex; align-items: center; justify-content: center;
+      color: #fff;
+      flex-shrink: 0;
+    }
+    .extra-zaal__icon svg { width: 48px; height: 48px; }
+    .extra-zaal__label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--green-muted, #a8c9b3);
+      margin-bottom: 8px;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .extra-zaal__label::before {
+      content: ''; width: 22px; height: 1.5px; background: var(--green-muted, #a8c9b3);
+    }
+    .extra-zaal__title {
+      font-family: var(--font-display);
+      font-size: clamp(26px, 3vw, 40px);
+      font-weight: 400;
+      line-height: 1.12;
+      margin: 0 0 12px;
+      color: #fff;
+    }
+    .extra-zaal__title em {
+      font-style: italic;
+      color: #f4d4a8;
+    }
+    .extra-zaal__body {
+      font-size: 15.5px;
+      line-height: 1.55;
+      font-weight: 300;
+      color: rgba(255,255,255,.88);
+      margin: 0 0 16px;
+      max-width: 620px;
+    }
+    .extra-zaal__body strong { color: #fff; font-weight: 600; }
+    .extra-zaal__chips {
+      display: flex; flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 14px;
+    }
+    .ez-chip {
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 7px 14px;
+      border-radius: var(--radius-pill);
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.18);
+      color: #fff;
+      white-space: nowrap;
+    }
+    .extra-zaal__cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 18px 32px;
+      border-radius: var(--radius-pill);
+      background: var(--red);
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 17px;
+      letter-spacing: .01em;
+      box-shadow: 0 10px 24px rgba(196,30,58,.35);
+      transition: transform .2s ease, box-shadow .2s ease;
+      flex-shrink: 0;
+    }
+    .extra-zaal__cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 32px rgba(196,30,58,.45);
+    }
+
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 900px) {
       #why, #over-ons, #menu-preview, #locatie-strip { padding: 36px 20px; }
@@ -124,6 +230,18 @@
       .chef-strip__overlay { padding: 0 28px; }
       .photo-pair { grid-template-columns: 1fr; padding: 12px 20px 0; }
       .photo-pair__item { height: 180px; }
+      .extra-zaal { padding: 36px 24px; margin: 12px 16px; }
+      .extra-zaal__inner {
+        grid-template-columns: 1fr;
+        gap: 22px;
+        text-align: center;
+      }
+      .extra-zaal__icon { margin: 0 auto; width: 76px; height: 76px; }
+      .extra-zaal__icon svg { width: 38px; height: 38px; }
+      .extra-zaal__label { justify-content: center; }
+      .extra-zaal__chips { justify-content: center; }
+      .extra-zaal__cta { width: 100%; justify-content: center; }
+      .extra-zaal__body { margin-left: auto; margin-right: auto; }
     }
   </style>
 </head>
@@ -394,6 +512,44 @@
 </section>
 
 <!-- ═══════════════════════════════════════════════════════════
+     EXTRA ZAAL — group/event marketing banner
+     ═══════════════════════════════════════════════════════════ -->
+<section class="extra-zaal" id="extra-zaal">
+  <div class="extra-zaal__bg-pattern"></div>
+  <div class="container extra-zaal__inner">
+    <div class="extra-zaal__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    </div>
+    <div class="extra-zaal__text">
+      <div class="extra-zaal__label" id="ez-label">Voor groepen & feesten</div>
+      <h2 class="extra-zaal__title" id="ez-title">
+        Altijd een <em>extra zaal</em> beschikbaar
+      </h2>
+      <p class="extra-zaal__body" id="ez-body">
+        Bedrijfsuitjes, verjaardagen of een gezellig diner met vrienden? Wij hebben altijd een extra zaal voor u klaar — <strong>ook zonder reservering</strong>. Loop binnen of bel ons even.
+      </p>
+      <div class="extra-zaal__chips">
+        <span class="ez-chip" id="ez-chip1">🎉 Verjaardagen</span>
+        <span class="ez-chip" id="ez-chip2">💼 Bedrijfsuitjes</span>
+        <span class="ez-chip" id="ez-chip3">👨‍👩‍👧‍👦 Familiediners</span>
+        <span class="ez-chip" id="ez-chip4">✨ Geen reservering nodig</span>
+      </div>
+    </div>
+    <a href="tel:0206751165" class="extra-zaal__cta">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <span>020 675 11 65</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
      SECOND PHOTO PAIR  (visual break, no section padding)
      ═══════════════════════════════════════════════════════════ -->
 <div class="photo-pair">
@@ -454,7 +610,7 @@
       Albert Cuypstraat 15H, 1072 CK Amsterdam
     </p>
     <p class="reveal" style="margin:0 auto 24px;text-align:center;font-size:18px;font-weight:600;color:var(--charcoal);">
-      Zaterdag 16:00 – 22:00
+      Elke dag 16:00 – 23:00
     </p>
     <div class="reveal" style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
       <a href="locatie.html" class="btn btn--red">Bekijk route</a>

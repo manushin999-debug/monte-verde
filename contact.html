@@ -146,7 +146,7 @@
         <div class="contact-card__icon green">🕐</div>
         <div>
           <div class="contact-card__label" id="cc-hours-label">Openingstijden</div>
-          <div class="contact-card__value" id="cc-hours-val" style="font-size:14px;">Zaterdag 16:00 – 22:00<br><span style="color:var(--text-muted);font-size:13px;">Overige dagen gesloten</span></div>
+          <div class="contact-card__value" id="cc-hours-val" style="font-size:14px;">Elke dag 16:00 – 23:00<br><span style="color:var(--text-muted);font-size:13px;">7 dagen per week geopend</span></div>
         </div>
       </div>
     </div>
@@ -161,7 +161,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6.06 6.06l.91-.84a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7a2 2 0 0 1 1.72 2.03z"></path></svg>
       020 675 11 65
     </a>
-    <p style="margin-top:18px;font-size:14px;color:var(--text-muted);">Zaterdag 16:00 – 22:00</p>
+    <p style="margin-top:18px;font-size:14px;color:var(--text-muted);" id="cta-hours">Elke dag 16:00 – 23:00</p>
   </div>
 </section>
 
@@ -203,14 +203,14 @@ gsap.registerPlugin(ScrollTrigger);
 const FAQ = {
   nl: [
     { q: 'Kan ik reserveren?', a: 'Bel ons op 020 675 11 65 voor een reservering. Online reserveren is binnenkort mogelijk.' },
-    { q: 'Wanneer bent u open?', a: 'Wij zijn open op zaterdag van 16:00 tot 22:00. Overige dagen zijn wij gesloten.' },
+    { q: 'Wanneer bent u open?', a: 'Wij zijn elke dag geopend van 16:00 tot 23:00.' },
     { q: 'Is afhalen mogelijk?', a: 'Ja! Bestel via onze website en haal uw bestelling op op het gewenste tijdstip.' },
     { q: 'Zijn er vegetarische opties?', a: 'Zeker! Wij bieden diverse vegetarische pizza\'s, pasta\'s en salades aan.' },
     { q: 'Accepteren jullie pinbetalingen?', a: 'Ja, wij accepteren pin, creditcard en contant geld.' },
   ],
   en: [
     { q: 'Can I make a reservation?', a: 'Call us at 020 675 11 65 for a reservation. Online booking coming soon.' },
-    { q: 'When are you open?', a: 'We are open Saturday from 16:00 to 22:00. Closed all other days.' },
+    { q: 'When are you open?', a: 'We are open every day from 16:00 to 23:00.' },
     { q: 'Is takeaway available?', a: 'Yes! Order via our website and pick up your order at a convenient time.' },
     { q: 'Are there vegetarian options?', a: 'Absolutely! We offer various vegetarian pizzas, pastas and salads.' },
     { q: 'Do you accept card payments?', a: 'Yes, we accept debit card, credit card and cash.' },
@@ -288,8 +288,10 @@ applyLang = function() {
   document.getElementById('cc-addr-label').textContent = isNL ? 'Adres' : 'Address';
   document.getElementById('cc-hours-label').textContent = isNL ? 'Openingstijden' : 'Opening hours';
   document.getElementById('cc-hours-val').innerHTML = isNL
-    ? 'Zaterdag 16:00 – 22:00<br><span style="color:var(--text-muted);font-size:13px;">Overige dagen gesloten</span>'
-    : 'Saturday 16:00 – 22:00<br><span style="color:var(--text-muted);font-size:13px;">Closed all other days</span>';
+    ? 'Elke dag 16:00 – 23:00<br><span style="color:var(--text-muted);font-size:13px;">7 dagen per week geopend</span>'
+    : 'Every day 16:00 – 23:00<br><span style="color:var(--text-muted);font-size:13px;">Open 7 days a week</span>';
+  const ctaHrs = document.getElementById('cta-hours');
+  if (ctaHrs) ctaHrs.textContent = isNL ? 'Elke dag 16:00 – 23:00' : 'Every day 16:00 – 23:00';
   document.getElementById('social-label').textContent = isNL ? 'Volg ons' : 'Follow us';
   document.getElementById('faq-title').textContent = isNL ? 'Veelgestelde vragen' : 'Frequently asked questions';
   document.getElementById('ct-fname').placeholder = isNL ? 'Uw voornaam' : 'Your first name';

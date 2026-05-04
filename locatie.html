@@ -335,8 +335,8 @@
             <div>
               <div class="loc-info-label" id="label-hours">Openingstijden</div>
               <div class="loc-info-val" id="hours-text">
-                <strong>Zaterdag: 16:00 – 22:00</strong><br>
-                <span style="color:var(--text-muted);font-size:13px;">Ma–Vr & Zo: gesloten</span>
+                <strong>Elke dag: 16:00 – 23:00</strong><br>
+                <span style="color:var(--text-muted);font-size:13px;">7 dagen per week geopend</span>
               </div>
             </div>
           </div>
@@ -579,10 +579,10 @@ function renderHoursGrid() {
   const days = currentLang === 'nl' ? DAYS_NL : DAYS_EN;
   const el = document.getElementById('hours-grid');
   if (!el) return;
-  el.innerHTML = days.map((d,i) => `
-    <div class="day-card ${i===5 ? 'open' : 'closed'}">
+  el.innerHTML = days.map((d) => `
+    <div class="day-card open">
       <div class="day-card__day">${d}</div>
-      <div class="day-card__time">${i===5 ? '16–22' : (currentLang==='nl'?'Ges.':'Cl.')}</div>
+      <div class="day-card__time">16–23</div>
     </div>`
   ).join('');
 }
@@ -623,8 +623,8 @@ applyLang = function() {
   document.getElementById('label-addr').textContent = nl ? 'Adres' : 'Address';
   document.getElementById('label-hours').textContent = nl ? 'Openingstijden' : 'Opening hours';
   document.getElementById('hours-text').innerHTML = nl
-    ? '<strong>Zaterdag: 16:00 – 22:00</strong><br><span style="color:var(--text-muted);font-size:13px;">Ma–Vr & Zo: gesloten</span>'
-    : '<strong>Saturday: 16:00 – 22:00</strong><br><span style="color:var(--text-muted);font-size:13px;">Mon–Fri & Sun: closed</span>';
+    ? '<strong>Elke dag: 16:00 – 23:00</strong><br><span style="color:var(--text-muted);font-size:13px;">7 dagen per week geopend</span>'
+    : '<strong>Every day: 16:00 – 23:00</strong><br><span style="color:var(--text-muted);font-size:13px;">Open 7 days a week</span>';
   document.getElementById('label-phone').textContent = nl ? 'Telefoon' : 'Phone';
   document.getElementById('label-rating').textContent = nl ? 'Beoordeling' : 'Rating';
   document.getElementById('schedule-title').textContent = nl ? 'Weekoverzicht' : 'Weekly schedule';
