@@ -13,7 +13,6 @@
   <style>
     /* ── Compact homepage overrides ─────────────────────────── */
     #why          { padding: 44px 40px 40px; }
-    #over-ons     { padding: 44px 40px; }
     #menu-preview { padding: 44px 40px; }
     #locatie-strip{ padding: 44px 40px; }
     .reviews-section { padding: 52px 40px; }
@@ -25,13 +24,6 @@
     #why   .section__title { font-size: clamp(28px,4vw,48px); margin-bottom: 10px; }
     #menu-preview .section__title { font-size: clamp(28px,4vw,48px); }
     #why   .section__body  { font-size: 15px; }
-
-    /* Over Ons tighter */
-    #over-ons .section__title { font-size: clamp(28px,4vw,52px); margin-bottom: 12px; }
-    #over-ons .section__body  { font-size: 15px; }
-    #over-ons .about-split    { gap: 48px; }
-    #over-ons .photo-grid__item:first-child { height: 280px; }
-    #over-ons .photo-grid__item:not(:first-child) { height: 128px; }
 
     /* Menu preview tighter */
     #menu-preview .pillars { margin-top: 0; }
@@ -223,7 +215,7 @@
 
     /* ── Responsive ─────────────────────────────────────────── */
     @media (max-width: 900px) {
-      #why, #over-ons, #menu-preview, #locatie-strip { padding: 36px 20px; }
+      #why, #menu-preview, #locatie-strip { padding: 36px 20px; }
       .reviews-section { padding: 40px 20px; }
       .photo-strip-section { padding: 12px 20px 0; }
       .chef-strip { height: 220px; }
@@ -339,7 +331,46 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     REVIEW SLIDER  (dark bg — directly after chef strip)
+     EXTRA ZAAL — group/event marketing banner
+     (moved to top — directly after chef strip for max visibility)
+     ═══════════════════════════════════════════════════════════ -->
+<section class="extra-zaal" id="extra-zaal">
+  <div class="extra-zaal__bg-pattern"></div>
+  <div class="container extra-zaal__inner">
+    <div class="extra-zaal__icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
+        <circle cx="9" cy="7" r="4"/>
+        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
+        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
+      </svg>
+    </div>
+    <div class="extra-zaal__text">
+      <div class="extra-zaal__label" id="ez-label">Voor groepen & feesten</div>
+      <h2 class="extra-zaal__title" id="ez-title">
+        Altijd een <em>extra zaal</em> beschikbaar
+      </h2>
+      <p class="extra-zaal__body" id="ez-body">
+        Bedrijfsuitjes, verjaardagen of een gezellig diner met vrienden? Wij hebben altijd een extra zaal voor u klaar — <strong>ook zonder reservering</strong>. Loop binnen of bel ons even.
+      </p>
+      <div class="extra-zaal__chips">
+        <span class="ez-chip" id="ez-chip1">🎉 Verjaardagen</span>
+        <span class="ez-chip" id="ez-chip2">💼 Bedrijfsuitjes</span>
+        <span class="ez-chip" id="ez-chip3">👨‍👩‍👧‍👦 Familiediners</span>
+        <span class="ez-chip" id="ez-chip4">✨ Geen reservering nodig</span>
+      </div>
+    </div>
+    <a href="tel:0206751165" class="extra-zaal__cta">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      <span>020 675 11 65</span>
+    </a>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════
+     REVIEW SLIDER  (dark bg)
      ═══════════════════════════════════════════════════════════ -->
 <section class="reviews-section" id="reviews" style="margin-top:0;padding-top:28px;padding-bottom:0;">
   <div class="container">
@@ -455,97 +486,6 @@
         <p class="pillar__body">Bestel online en haal op wanneer het u uitkomt. Snel, makkelijk en altijd vers.</p>
       </div>
     </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     OVER ONS  (white)
-     ═══════════════════════════════════════════════════════════ -->
-<section class="section" id="over-ons">
-  <div class="container">
-    <div class="about-split">
-      <div>
-        <div class="section__label reveal">Over ons</div>
-        <h2 class="section__title reveal">
-          Een stukje <em>Italië</em><br>in Amsterdam
-        </h2>
-        <p class="section__body reveal">
-          Monte Verde is al jarenlang een vertrouwd gezicht op de Albert Cuypstraat. Onze keuken ademt de sfeer van de zuidelijke Italiaanse regio's: rijke tomatensauzen, handgemaakte pasta, en pizza's gebakken met liefde.
-        </p>
-        <ul style="margin-top:18px;display:flex;flex-direction:column;gap:9px;" class="reveal">
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
-            <span style="width:18px;height:18px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);font-weight:700;">✓</span>
-            <span><strong>Elke dag vers gemaakt</strong> — geen diepvries, geen pakjes</span>
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
-            <span style="width:18px;height:18px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);font-weight:700;">✓</span>
-            <span><strong>Topkwaliteit ingrediënten</strong> — geselecteerde Italiaanse producten</span>
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
-            <span style="width:18px;height:18px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);font-weight:700;">✓</span>
-            <span><strong>4.3 sterren</strong> op Google — door onze gasten beoordeeld</span>
-          </li>
-          <li style="display:flex;align-items:center;gap:10px;font-size:14px;">
-            <span style="width:18px;height:18px;background:var(--green-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:10px;color:var(--green);font-weight:700;">✓</span>
-            <span><strong>Centraal gelegen</strong> — op de Albert Cuypstraat in De Pijp</span>
-          </li>
-        </ul>
-        <div style="margin-top:24px;display:flex;gap:12px;flex-wrap:wrap;" class="reveal">
-          <a href="bestelling.html" class="btn btn--primary">Bestel nu</a>
-          <a href="menu.html" class="btn btn--outline-dark">Bekijk menu</a>
-        </div>
-      </div>
-      <!-- Photo grid: interior + food photos -->
-      <div class="photo-grid reveal">
-        <div class="photo-grid__item">
-          <img src="interieur.png" alt="Interieur Monte Verde">
-        </div>
-        <div class="photo-grid__item">
-          <img src="eten1.png" alt="Verse pizza Monte Verde">
-        </div>
-        <div class="photo-grid__item">
-          <img src="eten2.png" alt="Pasta Monte Verde">
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     EXTRA ZAAL — group/event marketing banner
-     ═══════════════════════════════════════════════════════════ -->
-<section class="extra-zaal" id="extra-zaal">
-  <div class="extra-zaal__bg-pattern"></div>
-  <div class="container extra-zaal__inner">
-    <div class="extra-zaal__icon">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/>
-        <circle cx="9" cy="7" r="4"/>
-        <path d="M23 21v-2a4 4 0 0 0-3-3.87"/>
-        <path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-      </svg>
-    </div>
-    <div class="extra-zaal__text">
-      <div class="extra-zaal__label" id="ez-label">Voor groepen & feesten</div>
-      <h2 class="extra-zaal__title" id="ez-title">
-        Altijd een <em>extra zaal</em> beschikbaar
-      </h2>
-      <p class="extra-zaal__body" id="ez-body">
-        Bedrijfsuitjes, verjaardagen of een gezellig diner met vrienden? Wij hebben altijd een extra zaal voor u klaar — <strong>ook zonder reservering</strong>. Loop binnen of bel ons even.
-      </p>
-      <div class="extra-zaal__chips">
-        <span class="ez-chip" id="ez-chip1">🎉 Verjaardagen</span>
-        <span class="ez-chip" id="ez-chip2">💼 Bedrijfsuitjes</span>
-        <span class="ez-chip" id="ez-chip3">👨‍👩‍👧‍👦 Familiediners</span>
-        <span class="ez-chip" id="ez-chip4">✨ Geen reservering nodig</span>
-      </div>
-    </div>
-    <a href="tel:0206751165" class="extra-zaal__cta">
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
-      </svg>
-      <span>020 675 11 65</span>
-    </a>
   </div>
 </section>
 
