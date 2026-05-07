@@ -7,8 +7,7 @@
 const LANG = {
   nl: {
     nav_home:       'Over Ons',
-    nav_menu:       'Menu',
-    nav_bestelling: 'Bestelling Afhalen',
+    nav_menu:       'Menu & Afhalen',
     nav_locatie:    'Locatie',
     nav_contact:    'Contact',
     cart_title:     'Mijn Bestelling',
@@ -36,8 +35,7 @@ const LANG = {
   },
   en: {
     nav_home:       'About Us',
-    nav_menu:       'Menu',
-    nav_bestelling: 'Takeaway Order',
+    nav_menu:       'Menu & Takeaway',
     nav_locatie:    'Location',
     nav_contact:    'Contact',
     cart_title:     'My Order',
@@ -202,11 +200,10 @@ function initPageTransitions() {
 function buildSharedUI(activePage) {
   const t = LANG[currentLang];
   const pages = [
-    { key: 'nav_home',       href: 'index.html' },
-    { key: 'nav_menu',       href: 'menu.html' },
-    { key: 'nav_bestelling', href: 'bestelling.html' },
-    { key: 'nav_locatie',    href: 'locatie.html' },
-    { key: 'nav_contact',    href: 'contact.html' },
+    { key: 'nav_home',    href: 'index.html' },
+    { key: 'nav_menu',    href: 'menu.html' },
+    { key: 'nav_locatie', href: 'locatie.html' },
+    { key: 'nav_contact', href: 'contact.html' },
   ];
 
   // Nav

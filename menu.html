@@ -3,13 +3,80 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu — Monte Verde Amsterdam</title>
-  <meta name="description" content="Bekijk het volledige menu van Monte Verde. Pizza, pasta, vlees, vis en meer.">
+  <title>Menu & Afhalen — Monte Verde Amsterdam</title>
+  <meta name="description" content="Bekijk het volledige menu van Monte Verde en bel voor afhalen. Pizza, pasta, vlees, vis en meer.">
   <link rel="icon" type="image/png" href="logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap">
   <link rel="stylesheet" href="css/style.css">
+  <style>
+    .call-cta {
+      padding: 48px 40px 56px;
+      text-align: center;
+      background: var(--green-light);
+    }
+    .call-cta__label {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: var(--green);
+      margin-bottom: 12px;
+    }
+    .call-cta__intro {
+      font-family: var(--font-display);
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--charcoal);
+      margin: 0 auto 22px;
+      max-width: 640px;
+    }
+    .call-cta__intro em { font-style: italic; color: var(--green); }
+    .call-cta__btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 22px;
+      font-weight: 700;
+      padding: 22px 52px;
+      border-radius: var(--radius-pill);
+      background: var(--red);
+      color: #fff;
+      text-decoration: none;
+      letter-spacing: .02em;
+      box-shadow: var(--shadow-lg);
+      transition: transform .2s ease, box-shadow .2s ease;
+    }
+    .call-cta__btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(196, 30, 58, .35);
+    }
+    .call-cta__hours {
+      margin-top: 18px;
+      font-size: 14px;
+      color: var(--text-muted);
+    }
+    /* Sticky floating call button */
+    .floating-call {
+      position: fixed;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 500;
+      background: var(--red);
+      color: #fff;
+      border-radius: var(--radius-pill);
+      padding: 14px 24px;
+      display: inline-flex; align-items: center; gap: 10px;
+      box-shadow: var(--shadow-lg);
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 15px;
+      white-space: nowrap;
+    }
+  </style>
 </head>
 <body>
 
@@ -30,11 +97,36 @@
   </div>
 </section>
 
+<!-- ── Bel-om-te-bestellen CTA (above the menu) ──────────────── -->
+<section class="call-cta">
+  <div class="container">
+    <p class="call-cta__label" id="call-label">Afhalen? Bel ons direct</p>
+    <p class="call-cta__intro" id="call-intro">
+      Wilt u een gerecht van het menu hieronder <em>afhalen</em>? Bel ons even — uw bestelling staat vers voor u klaar.
+    </p>
+    <a href="tel:0206751165" class="call-cta__btn">
+      <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+      </svg>
+      020 675 11 65
+    </a>
+    <p class="call-cta__hours" id="call-hours">Elke dag 16:00 – 23:00</p>
+  </div>
+</section>
+
 <!-- ── Category tabs ─────────────────────────────────────────── -->
 <div class="menu-tabs" id="menu-tabs"></div>
 
 <!-- ── Menu content ──────────────────────────────────────────── -->
 <main class="menu-content" id="menu-content"></main>
+
+<!-- ── Sticky floating call button ───────────────────────────── -->
+<a href="tel:0206751165" class="floating-call" id="floating-call">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+  </svg>
+  <span id="floating-call-label">Bel om te bestellen</span>
+</a>
 
 <!-- ── Footer ───────────────────────────────────────────────── -->
 <footer>
@@ -78,14 +170,12 @@ function renderMenu() {
   const tabsEl = document.getElementById('menu-tabs');
   const contentEl = document.getElementById('menu-content');
 
-  // Tabs
   tabsEl.innerHTML = MENU.map((cat, i) =>
     `<button class="tab-btn ${i===0?'active':''}" onclick="scrollToCategory('${cat.id}')" id="tab-${cat.id}">
       ${cat.icon} ${cat[lang]}
     </button>`
   ).join('');
 
-  // Content
   contentEl.innerHTML = MENU.map(cat => `
     <section class="menu-category" id="cat-${cat.id}" data-cat="${cat.id}">
       <h2 class="menu-category__title">
@@ -98,7 +188,6 @@ function renderMenu() {
     </section>
   `).join('');
 
-  // Active tab on scroll
   initTabScroll();
 }
 
@@ -151,17 +240,25 @@ const _origApplyLang = applyLang;
 applyLang = function() {
   _origApplyLang();
   renderMenu();
-  document.getElementById('menu-label').textContent = currentLang === 'nl' ? 'Ons aanbod' : 'Our offer';
-  document.getElementById('menu-heading').innerHTML = currentLang === 'nl' ? 'Ons <em>Menu</em>' : 'Our <em>Menu</em>';
-  document.getElementById('menu-sub').textContent = currentLang === 'nl'
+  const isNL = currentLang === 'nl';
+  document.getElementById('menu-label').textContent = isNL ? 'Ons aanbod' : 'Our offer';
+  document.getElementById('menu-heading').innerHTML = isNL ? 'Ons <em>Menu</em>' : 'Our <em>Menu</em>';
+  document.getElementById('menu-sub').textContent = isNL
     ? 'Authentieke Italiaanse keuken — vers bereid in onze keuken.'
     : 'Authentic Italian cuisine — freshly prepared in our kitchen.';
+  document.getElementById('call-label').textContent = isNL ? 'Afhalen? Bel ons direct' : 'Takeaway? Call us directly';
+  document.getElementById('call-intro').innerHTML = isNL
+    ? 'Wilt u een gerecht van het menu hieronder <em>afhalen</em>? Bel ons even — uw bestelling staat vers voor u klaar.'
+    : 'Want to <em>take away</em> a dish from the menu below? Just call us — your order will be ready and fresh.';
+  document.getElementById('call-hours').textContent = isNL ? 'Elke dag 16:00 – 23:00' : 'Every day 16:00 – 23:00';
+  document.getElementById('floating-call-label').textContent = isNL ? 'Bel om te bestellen' : 'Call to order';
 };
 
 /* ── Entrance animation ────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   renderMenu();
   gsap.from('.menu-hero', { opacity: 0, y: -20, duration: .8, ease: 'power3.out', delay: .5 });
+  gsap.from('.call-cta__btn', { opacity: 0, scale: .9, duration: .6, ease: 'back.out(1.6)', delay: .7 });
 });
 </script>
 </body>

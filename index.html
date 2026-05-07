@@ -40,28 +40,6 @@
     /* Location strip tight */
     #locatie-strip .section__title { font-size: clamp(26px,3.5vw,44px); margin-bottom: 10px; }
 
-    /* ── Food trio (between extra-zaal and reviews) ─────────── */
-    .food-trio {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 14px;
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 16px 40px 0;
-    }
-    .food-trio__item {
-      border-radius: var(--radius-lg);
-      overflow: hidden;
-      height: 260px;
-      box-shadow: 0 8px 24px rgba(0,0,0,.08);
-    }
-    .food-trio__item img {
-      width: 100%; height: 100%;
-      object-fit: cover; display: block;
-      transition: transform .7s ease;
-    }
-    .food-trio__item:hover img { transform: scale(1.06); }
-
     /* ── Second photo pair (tight) ──────────────────────────── */
     .photo-pair {
       display: grid;
@@ -196,8 +174,6 @@
       .photo-strip-section { padding: 12px 20px 0; }
       .photo-pair { grid-template-columns: 1fr; padding: 12px 20px 0; }
       .photo-pair__item { height: 180px; }
-      .food-trio { grid-template-columns: 1fr; gap: 10px; padding: 12px 20px 0; }
-      .food-trio__item { height: 200px; }
       .extra-zaal { padding: 36px 24px; margin: 12px 16px; }
       .extra-zaal__inner {
         grid-template-columns: 1fr;
@@ -234,7 +210,7 @@
     </p>
     <div class="hero__ctas" id="hero-ctas">
       <a href="menu.html" class="btn btn--primary">Bekijk ons menu</a>
-      <a href="bestelling.html" class="btn btn--outline">Bestelling afhalen</a>
+      <a href="tel:0206751165" class="btn btn--outline">Bel voor afhalen</a>
     </div>
     <div class="hero__stats" id="hero-stats">
       <div class="hero__stat">
@@ -328,15 +304,6 @@
     </a>
   </div>
 </section>
-
-<!-- ═══════════════════════════════════════════════════════════
-     FOOD TRIO — 3 photos between extra-zaal and reviews
-     ═══════════════════════════════════════════════════════════ -->
-<div class="food-trio">
-  <div class="food-trio__item"><img src="eten1.png" alt="Verse pizza Monte Verde"></div>
-  <div class="food-trio__item"><img src="eten2.png" alt="Huisgemaakte pasta Monte Verde"></div>
-  <div class="food-trio__item"><img src="eten3.png" alt="Italiaans dessert Monte Verde"></div>
-</div>
 
 <!-- ═══════════════════════════════════════════════════════════
      REVIEW SLIDER  (dark bg)
@@ -501,7 +468,7 @@
     </div>
     <div style="margin-top:28px;" class="reveal">
       <a href="menu.html" class="btn btn--primary" style="margin-right:12px;">Volledig menu</a>
-      <a href="bestelling.html" class="btn btn--outline-dark">Bestel online</a>
+      <a href="tel:0206751165" class="btn btn--outline-dark">Bel voor afhalen</a>
     </div>
   </div>
 </section>
@@ -587,15 +554,6 @@ gsap.utils.toArray('.photo-strip__item').forEach((el, i) => {
     opacity:0, y:36, duration:.65, ease:'power3.out',
     scrollTrigger: { trigger: el, start:'top 92%' },
     delay: i * .1
-  });
-});
-
-/* ── Food trio reveal ──────────────────────────────────────── */
-gsap.utils.toArray('.food-trio__item').forEach((el, i) => {
-  gsap.from(el, {
-    opacity: 0, scale: 1.05, duration: .7, ease: 'power2.out',
-    scrollTrigger: { trigger: '.food-trio', start: 'top 92%' },
-    delay: i * .12
   });
 });
 
