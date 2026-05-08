@@ -235,62 +235,6 @@
 </div>
 
 <!-- ═══════════════════════════════════════════════════════════
-     NEIGHBOURHOOD DESCRIPTION
-     ═══════════════════════════════════════════════════════════ -->
-<section class="loc-section" style="background:var(--green-light);">
-  <div class="container">
-    <div style="display:grid;grid-template-columns:1.1fr 1fr;gap:48px;align-items:center;">
-      <div>
-        <div class="section__label reveal" id="nb-label">De buurt</div>
-        <h2 class="section__title reveal" style="font-size:clamp(28px,4vw,48px);margin-bottom:14px;" id="nb-heading">
-          Hartje Amsterdam,<br><em>midden in De Pijp</em>
-        </h2>
-        <p style="font-size:15px;line-height:1.8;color:var(--text-muted);margin-bottom:14px;" class="reveal" id="nb-text1">
-          Monte Verde ligt op de levendige <strong style="color:var(--charcoal);">Albert Cuypstraat</strong> in Amsterdam De Pijp — één van de meest gezellige en bruisende buurten van de stad. Op loopafstand van de beroemde <strong style="color:var(--charcoal);">Albert Cuypmarkt</strong>, de dagelijkse buitenmarkt van Amsterdam.
-        </p>
-        <p style="font-size:15px;line-height:1.8;color:var(--text-muted);" class="reveal" id="nb-text2">
-          Op slechts één metrostation afstand van het <strong style="color:var(--charcoal);">kloppende centrum</strong> van Amsterdam, en op een rustige wandeling van het wereldberoemde <strong style="color:var(--charcoal);">Museumplein</strong> met het Rijksmuseum en het Van Gogh Museum. De perfecte locatie voor een heerlijk Italiaans diner — voor, na of tussen het stadsgenieten door.
-        </p>
-      </div>
-      <div class="neighbourhood-grid reveal">
-        <div class="nb-card">
-          <div class="nb-card__icon nb-card__icon--green">🛒</div>
-          <div>
-            <div class="nb-card__walk" id="nb-walk1">2 min. lopen</div>
-            <div class="nb-card__name" id="nb-name1">Albert Cuypmarkt</div>
-            <div class="nb-card__desc" id="nb-desc1">De grootste dagmarkt van Nederland, pal om de hoek</div>
-          </div>
-        </div>
-        <div class="nb-card">
-          <div class="nb-card__icon nb-card__icon--red">🏛️</div>
-          <div>
-            <div class="nb-card__walk" id="nb-walk2">12 min. lopen</div>
-            <div class="nb-card__name" id="nb-name2">Museumplein</div>
-            <div class="nb-card__desc" id="nb-desc2">Rijksmuseum, Van Gogh Museum & Stedelijk Museum</div>
-          </div>
-        </div>
-        <div class="nb-card">
-          <div class="nb-card__icon nb-card__icon--green">🚇</div>
-          <div>
-            <div class="nb-card__walk" id="nb-walk3">1 metro stop</div>
-            <div class="nb-card__name" id="nb-name3">Stadscentrum</div>
-            <div class="nb-card__desc" id="nb-desc3">Metro 52 richting Centraal Station</div>
-          </div>
-        </div>
-        <div class="nb-card">
-          <div class="nb-card__icon nb-card__icon--red">🌿</div>
-          <div>
-            <div class="nb-card__walk" id="nb-walk4">3 min. lopen</div>
-            <div class="nb-card__name" id="nb-name4">Sarphatipark</div>
-            <div class="nb-card__desc" id="nb-desc4">Rustig stadspark voor een wandeling na het diner</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════════════
      MAP + INFO CARD (side by side)
      ═══════════════════════════════════════════════════════════ -->
 <section class="loc-section" style="padding-top:0;">
@@ -594,28 +538,6 @@ applyLang = function() {
   // Hero
   document.getElementById('loc-heading').innerHTML = nl ? 'Onze <em>Locatie</em>' : 'Our <em>Location</em>';
   document.getElementById('loc-sub').textContent = nl ? 'Albert Cuypstraat 15H · Amsterdam De Pijp' : 'Albert Cuypstraat 15H · Amsterdam De Pijp';
-  // Neighbourhood
-  document.getElementById('nb-label').textContent = nl ? 'De buurt' : 'The neighbourhood';
-  document.getElementById('nb-heading').innerHTML = nl ? 'Hartje Amsterdam,<br><em>midden in De Pijp</em>' : 'Heart of Amsterdam,<br><em>in the middle of De Pijp</em>';
-  document.getElementById('nb-text1').innerHTML = nl
-    ? 'Monte Verde ligt op de levendige <strong style="color:var(--charcoal);">Albert Cuypstraat</strong> in Amsterdam De Pijp — één van de meest gezellige buurten van de stad. Op loopafstand van de beroemde <strong style="color:var(--charcoal);">Albert Cuypmarkt</strong>, de dagelijkse buitenmarkt van Amsterdam.'
-    : 'Monte Verde is located on the vibrant <strong style="color:var(--charcoal);">Albert Cuypstraat</strong> in Amsterdam De Pijp — one of the city\'s most charming neighbourhoods. A short walk from the famous <strong style="color:var(--charcoal);">Albert Cuypmarkt</strong>, Amsterdam\'s largest daily outdoor market.';
-  document.getElementById('nb-text2').innerHTML = nl
-    ? 'Op slechts één metrostation afstand van het <strong style="color:var(--charcoal);">stadscentrum</strong>, en op een korte wandeling van het <strong style="color:var(--charcoal);">Museumplein</strong> met het Rijksmuseum en het Van Gogh Museum.'
-    : 'Just one metro stop from the <strong style="color:var(--charcoal);">city centre</strong>, and a short walk from <strong style="color:var(--charcoal);">Museumplein</strong> with the Rijksmuseum and Van Gogh Museum.';
-  // Neighbourhood cards
-  document.getElementById('nb-walk1').textContent = nl ? '2 min. lopen' : '2 min. walk';
-  document.getElementById('nb-name1').textContent = 'Albert Cuypmarkt';
-  document.getElementById('nb-desc1').textContent = nl ? "De grootste dagmarkt van Nederland, pal om de hoek" : "The largest daily market in the Netherlands, right around the corner";
-  document.getElementById('nb-walk2').textContent = nl ? '12 min. lopen' : '12 min. walk';
-  document.getElementById('nb-name2').textContent = 'Museumplein';
-  document.getElementById('nb-desc2').textContent = nl ? "Rijksmuseum, Van Gogh Museum & Stedelijk Museum" : "Rijksmuseum, Van Gogh Museum & Stedelijk Museum";
-  document.getElementById('nb-walk3').textContent = nl ? '1 metro stop' : '1 metro stop';
-  document.getElementById('nb-name3').textContent = nl ? 'Stadscentrum' : 'City centre';
-  document.getElementById('nb-desc3').textContent = nl ? "Metro 52 richting Centraal Station" : "Metro 52 toward Central Station";
-  document.getElementById('nb-walk4').textContent = nl ? '3 min. lopen' : '3 min. walk';
-  document.getElementById('nb-name4').textContent = 'Sarphatipark';
-  document.getElementById('nb-desc4').textContent = nl ? "Rustig stadspark voor een wandeling na het diner" : "Peaceful city park for a stroll after dinner";
   // Map
   document.getElementById('map-label').textContent = nl ? 'Kaart' : 'Map';
   document.getElementById('info-header-label').textContent = nl ? 'Praktisch' : 'Practical info';
